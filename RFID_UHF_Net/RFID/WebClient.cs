@@ -4,10 +4,9 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Windows.Forms;
-using CodeBetter.Json;
 using System.Text.RegularExpressions;
-
+using CodeBetter.Json;
+using System.Windows.Forms;
 
 namespace com.abitech.rfid
 {
@@ -17,7 +16,7 @@ namespace com.abitech.rfid
     ///     В error записывается либо null, если всё прошло нормально, либо же код ошибки.
     ///     В последнем случае в result записывается возможное словесное описание ошибки. 
     /// </summary>
-    class RpcResponse
+    public class RpcResponse
     {
         public string result;
         public StatusCode status;
@@ -69,39 +68,23 @@ namespace com.abitech.rfid
             this.Configuration = configuration;
         }
 
-        /// <summary>
-        /// Посылка неотправленных заявок
-        /// </summary>
-        /// <param name="unshippedSessions">Список заявков со статусом Session.DeliveryStatus.Unshipped.
-        /// Список заполняется TagsCollector.GetUnshippedTags()</param>
-        public void SendOrders(List<TubesOrder> orders)
-        {
-            
-            foreach (var order in orders)
-            {
-                SendOrder(order, url);
-                //MessageBox.Show("Номер трекинга: " + order.trackId.ToString());
-            }
-        }
-
-        public void SendOrder(TubesOrder order)
+        public RpcResponse SendOrder(TubesOrder order)
         {
             var url = "order/" + Configuration.DeviceKey + "/";
-            SendOrder(order, url);
+
+            return SendDocument(order, url);
         }
 
-        public void SendOrder(TubesOrder order, string url)
+        public RpcResponse SendWaybill(TubesOrder waybill)
         {
-            var response = SendPostData(url, Converter.Serialize(order));
+            var url = "waybill/" + Configuration.DeviceKey + "/";
 
-            //Если дубликат, тоже не отправлять.
-            if (response.status == RpcResponse.StatusCode.Ok || response.status == RpcResponse.StatusCode.DuplicatedMessage)
-            {
-                // MessageBox.Show(response.status + " " + response.result);
-                order.deliveryStatus = TubesOrder.DeliveryStatus.Shipped;
-                if (order.orderStatus == TubesOrder.OrderStatus.New)
-                    order.trackId = Int32.Parse(response.result);                
-            }
+            return SendDocument(waybill, url);
+        }
+
+        RpcResponse SendDocument(TubesOrder order, string url)
+        {
+            return SendPostData(url, Converter.Serialize(order));
         }
 
         /// <summary>
@@ -114,22 +97,20 @@ namespace com.abitech.rfid
             //var json = "{\"result\":[{\"trackId\":\"1\",\"districtId\":\"100\",\"tubesLength\":\"1200\",\"tubesNumber\":\"100\",\"orderStatus\":\"0\"},{\"trackId\":\"2\",\"districtId\":\"1100\",\"tubesLength\":\"1200\",\"tubesNumber\":\"100\",\"orderStatus\":\"0\"},{\"trackId\":\"3\",\"districtId\":\"12\",\"tubesLength\":\"54\",\"tubesNumber\":\"87\",\"orderStatus\":\"0\"},{\"trackId\":\"4\",\"districtId\":\"123\",\"tubesLength\":\"321\",\"tubesNumber\":\"456\",\"orderStatus\":\"0\"}],\"error\":null}";
             //var response = RfidJson.Deserialize(json);
             
-            // MessageBox.Show(response.result);
-
             var jsonOrders = Regex.Split(response.result.Replace("\"", ""), "\\},\\{");
 
             var orders = new List<TubesOrder>();
 
             foreach (var jsonOrder in jsonOrders)
             {
-                var match = Regex.Match(jsonOrder, ".*trackId:(\\d+).*districtId:(\\d+).*tubesLength:(\\d+).*tubesNumber:(\\d+).*orderStatus:(\\d+).*");
+                var match = Regex.Match(jsonOrder, ".*trackId:(\\d+).*districtId:(\\d+).*tubesDiameter:(\\d+).*tubesNumber:(\\d+).*orderStatus:(\\d+).*");
                 if (match.Success)
                 {
                     orders.Add(new TubesOrder()
                         {
                             trackId = Int32.Parse(match.Groups[1].Value),
                             districtId = Int32.Parse(match.Groups[2].Value),
-                            tubeDiameter = Int32.Parse(match.Groups[3].Value),
+                            tubesDiameter = Int32.Parse(match.Groups[3].Value),
                             tubesNumber = Int32.Parse(match.Groups[4].Value),
                             orderStatus = (TubesOrder.OrderStatus)Int32.Parse(match.Groups[5].Value)
                         });
@@ -148,11 +129,11 @@ namespace com.abitech.rfid
         {
             try
             {
+                MessageBox.Show(jsonString);
+
                 var jsonHashString = "&checksum=";
                 var inHashBytes = UniEncoding.GetBytes(jsonString);
                 var outHashBytes = Sha1.ComputeHash(inHashBytes);
-
-                //MessageBox.Show(jsonString);
 
                 foreach (var b in outHashBytes)
                 {
@@ -178,7 +159,7 @@ namespace com.abitech.rfid
                 {
                     var responseStr = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-                    // MessageBox.Show(responseStr);
+                    MessageBox.Show(responseStr);
                     
                     //Использовал самописный десериализатор, т.к. CodeBetter, цитирую:
                     //On the whole I found it works; From memory it does not deal with nulls nicely,
@@ -204,9 +185,7 @@ namespace com.abitech.rfid
         {
             order.dateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             order.orderStatus = status;
-
-            var url = "order/" + Configuration.DeviceKey + "/";
-            SendOrder(order, url);
+            SendOrder(order);
         }
     }
 }

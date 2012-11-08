@@ -46,6 +46,7 @@
             this.button_Continue.Size = new System.Drawing.Size(234, 25);
             this.button_Continue.TabIndex = 2;
             this.button_Continue.Text = "Continuous Read";
+            this.button_Continue.Visible = false;
             this.button_Continue.Click += new System.EventHandler(this.button_Continue_Click);
             // 
             // button_Memory
@@ -55,6 +56,7 @@
             this.button_Memory.Size = new System.Drawing.Size(234, 25);
             this.button_Memory.TabIndex = 3;
             this.button_Memory.Text = "Read/Write";
+            this.button_Memory.Visible = false;
             this.button_Memory.Click += new System.EventHandler(this.button_Memory_Click);
             // 
             // button_Setting
@@ -64,6 +66,7 @@
             this.button_Setting.Size = new System.Drawing.Size(234, 25);
             this.button_Setting.TabIndex = 4;
             this.button_Setting.Text = "Setting";
+            this.button_Setting.Visible = false;
             this.button_Setting.Click += new System.EventHandler(this.button_Setting_Click);
             // 
             // MakeOrder
@@ -91,7 +94,7 @@
             this.tracking.Size = new System.Drawing.Size(233, 20);
             this.tracking.TabIndex = 9;
             this.tracking.Text = "Закрытие заявки";
-            this.tracking.Click += new System.EventHandler(this.tracking_Click);
+            this.tracking.Visible = false;
             // 
             // networkTimer
             // 

@@ -63,7 +63,6 @@ namespace RFID_UHF_Net
                 System.Threading.Thread.Sleep(500);
 
                 var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-                RfidReader.collector = new RfidTagsCollector(path + @"\rfid.db");
                 RfidReader.web = new RfidWebClient(Configuration.Deserialize(path + @"\config.xml"));
                 RfidReader.reader = m_Reader;
                 RfidReader.source = m_Reader.GetSources()[0];
@@ -182,14 +181,6 @@ namespace RFID_UHF_Net
             {
                 if (m_Reader != null) m_Reader.Disconnect();
             }
-
-            RfidReader.collector.Close();
-        }
-
-        private void tracking_Click(object sender, EventArgs e)
-        {
-            var form = new TagsOperation();
-            form.ShowDialog();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -198,13 +189,13 @@ namespace RFID_UHF_Net
 
         private void OrderList_Click(object sender, EventArgs e)
         {
-            var form = new OrderList();
+            var form = new Form_OrderList();
             form.ShowDialog();
         }
 
         private void MakeOrder_Click(object sender, EventArgs e)
         {
-            var form = new NewOrder();
+            var form = new Form_NewOrder();
             form.ShowDialog();
         }
 

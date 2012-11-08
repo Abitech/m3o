@@ -51,7 +51,7 @@ namespace com.abitech.rfid
             INSERT INTO orders       ( districtId,  tubeDiameter,  tubesNumber,  orderStatus,  dateCreated,  isDelivered)
                                VALUES(@districtId, @tubeDiameter, @tubesNumber, @orderStatus, @dateCreated, @isDelivered)", connection);
             cmd.Parameters.AddWithValue("@districtId", order.districtId);
-            cmd.Parameters.AddWithValue("@tubeDiameter", order.tubeDiameter);
+            cmd.Parameters.AddWithValue("@tubeDiameter", order.tubesDiameter);
             cmd.Parameters.AddWithValue("@tubesNumber", order.tubesNumber);
             cmd.Parameters.AddWithValue("@orderStatus", (int)order.orderStatus);
             cmd.Parameters.AddWithValue("@dateCreated", order.dateCreated);
@@ -79,7 +79,7 @@ namespace com.abitech.rfid
                         orderId = reader.GetInt32(0),
                         trackId = reader.IsDBNull(1) ? null : (int?)reader.GetInt32(1), 
                         districtId = reader.GetInt32(2),
-                        tubeDiameter = reader.GetInt32(3),
+                        tubesDiameter = reader.GetInt32(3),
                         tubesNumber = reader.GetInt32(4),
                         orderStatus = (TubesOrder.OrderStatus)reader.GetInt32(5),
                         dateCreated = reader.GetString(6),

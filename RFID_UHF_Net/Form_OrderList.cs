@@ -11,7 +11,7 @@ using com.caen.RFIDLibrary;
 
 namespace RFID_UHF_Net
 {
-    public partial class OrderList : Form
+    public partial class Form_OrderList : Form
     {
         private void Sync()
         {
@@ -19,12 +19,10 @@ namespace RFID_UHF_Net
 
             var orders = RfidReader.web.SyncronizeOrders();
 
-            //MessageBox.Show(orders.Count.ToString());
-
             foreach (var order in orders)
             {
                 var item = new ListViewItem { Text = order.districtId.ToString() }; //order.trackId.ToString()
-                item.SubItems.Add(order.TubeDiameter[order.tubeDiameter - 1]);
+                item.SubItems.Add(order.TubeDiameter[order.tubesDiameter]);
                 item.SubItems.Add(order.tubesNumber.ToString());
 
                 var statusString = String.Empty;
@@ -39,11 +37,10 @@ namespace RFID_UHF_Net
                 item.SubItems.Add(statusString);
                 item.Tag = order;
                 orderLog.Items.Add(item);
-
             }
         }
 
-        public OrderList()
+        public Form_OrderList()
         {
             InitializeComponent();
             Sync();
@@ -54,13 +51,15 @@ namespace RFID_UHF_Net
         }
 
         private void orderLog_ItemActivated(object sender, EventArgs e)
-        {
-            
+        {            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
+
+            if (row == null) return;
+
             var order = (TubesOrder)row.Tag;
 
             var result = MessageBox.Show("Отменить заявку?", "Отмена заявки", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -68,6 +67,7 @@ namespace RFID_UHF_Net
             if (result == DialogResult.OK)
             {
                 RfidReader.web.UpdateOrderStatus((TubesOrder)orderLog.FocusedItem.Tag, TubesOrder.OrderStatus.Declined);
+                row.SubItems[3].Text = order.orderStatus.ToString();
             }
 
             Sync();
@@ -76,24 +76,27 @@ namespace RFID_UHF_Net
         private void button1_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
+
+            if (row == null) return;
+
             var order = (TubesOrder)row.Tag;
             
-            var result = MessageBox.Show("Считать данные с метки?", "Транспортная метка", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            var result = MessageBox.Show("Закрыть заявку?", "Закрытие заявки", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (result == DialogResult.OK)
             {
-                CAENRFIDTag tag;
-
-                if (!RfidReader.GetSelectedTag(out tag))
-                {
-                    MessageBox.Show("Метка не обнаружена. Повторите операцию.");
-                    return;
-                }
-
-                order.epc = System.BitConverter.ToString(tag.GetId());
                 RfidReader.web.UpdateOrderStatus((TubesOrder)orderLog.FocusedItem.Tag, TubesOrder.OrderStatus.Completed);
                 row.SubItems[3].Text = order.orderStatus.ToString();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var row = orderLog.FocusedItem;
+            if (row == null) return;
+
+            var waybillForm = new Form_Waybill(row);
+            waybillForm.Show();
         }        
     }       
 }

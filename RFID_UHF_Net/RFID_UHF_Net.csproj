@@ -101,17 +101,17 @@
     <Compile Include="Form_Setting.Designer.cs">
       <DependentUpon>Form_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewOrder.cs">
+    <Compile Include="Form_NewOrder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewOrder.Designer.cs">
-      <DependentUpon>NewOrder.cs</DependentUpon>
+    <Compile Include="Form_NewOrder.Designer.cs">
+      <DependentUpon>Form_NewOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderList.cs">
+    <Compile Include="Form_OrderList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderList.Designer.cs">
-      <DependentUpon>OrderList.cs</DependentUpon>
+    <Compile Include="Form_OrderList.Designer.cs">
+      <DependentUpon>Form_OrderList.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,19 +131,19 @@
       <SubType>Designer</SubType>
       <DependentUpon>Form_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewOrder.resx">
-      <DependentUpon>NewOrder.cs</DependentUpon>
+    <EmbeddedResource Include="Form_NewOrder.resx">
+      <DependentUpon>Form_NewOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderList.resx">
-      <DependentUpon>OrderList.cs</DependentUpon>
+    <EmbeddedResource Include="Form_OrderList.resx">
+      <DependentUpon>Form_OrderList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TagsOperation.resx">
-      <DependentUpon>TagsOperation.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Waybill.resx">
+      <DependentUpon>Form_Waybill.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -153,15 +153,14 @@
     <Compile Include="RFID\Configuration.cs" />
     <Compile Include="RFID\Reader.cs" />
     <Compile Include="RFID\Json.cs" />
-    <Compile Include="RFID\TagsCollector.cs" />
     <Compile Include="RFID\Orders.cs" />
     <Compile Include="RFID\WebClient.cs" />
     <Compile Include="SoundClass.cs" />
-    <Compile Include="TagsOperation.cs">
+    <Compile Include="Form_Waybill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TagsOperation.Designer.cs">
-      <DependentUpon>TagsOperation.cs</DependentUpon>
+    <Compile Include="Form_Waybill.Designer.cs">
+      <DependentUpon>Form_Waybill.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

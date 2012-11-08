@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace com.abitech.rfid
 {
-    public class TubeDiameter
+    public class ComboBoxItem
     {
         public string value;
         public int id;
@@ -19,18 +19,20 @@ namespace com.abitech.rfid
     public class TubesOrder
     {
         public enum DeliveryStatus { Unshipped = 0, Shipped = 1 };
-        public enum OrderStatus { New = 0, Processing = 1, Completed = 3, Declined = 4 };
+        public enum OrderStatus { New = 0, Completed = 3, Declined = 4 };
         public enum OrderType { Delivery = 0, Dispatch = 1 };
-
         public string[] TubeDiameter = new string[4] { "60", "73", "73 выс", "89" };
 
-        public int orderId;
         public int? trackId;
 
-        public OrderType type;
+        public int orderType;
         public int districtId;
-        public int tubeDiameter;
+        public int tubesDiameter;
         public int tubesNumber;
+
+        //Товарно-транспортная накладная
+        public int oldTubesNumber;
+        public int newTubesNumber;
         public string epc;
 
         public OrderStatus orderStatus;

@@ -10,7 +10,6 @@ namespace com.abitech.rfid
 {
     static class RfidReader
     {
-        public static RfidTagsCollector collector;
         public static RfidWebClient web;
 
         public static CAENRFIDReader reader;
