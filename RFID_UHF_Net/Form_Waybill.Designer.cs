@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Button SendWaybill;
+            System.Windows.Forms.Button sendWaybillT;
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.readTag = new System.Windows.Forms.Button();
             this.epcLabel = new System.Windows.Forms.Label();
@@ -37,17 +37,17 @@
             this.oldTubesNumberT = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.newTubesNumberT = new System.Windows.Forms.TextBox();
-            SendWaybill = new System.Windows.Forms.Button();
+            sendWaybillT = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // SendWaybill
+            // sendWaybillT
             // 
-            SendWaybill.Location = new System.Drawing.Point(4, 203);
-            SendWaybill.Name = "SendWaybill";
-            SendWaybill.Size = new System.Drawing.Size(100, 20);
-            SendWaybill.TabIndex = 13;
-            SendWaybill.Text = "Отправить";
-            SendWaybill.Click += new System.EventHandler(this.sendWaybill_Click);
+            sendWaybillT.Location = new System.Drawing.Point(4, 203);
+            sendWaybillT.Name = "sendWaybillT";
+            sendWaybillT.Size = new System.Drawing.Size(100, 20);
+            sendWaybillT.TabIndex = 13;
+            sendWaybillT.Text = "Отправить";
+            sendWaybillT.Click += new System.EventHandler(this.sendWaybill_Click);
             // 
             // readTag
             // 
@@ -104,7 +104,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.oldTubesNumberT);
-            this.Controls.Add(SendWaybill);
+            this.Controls.Add(sendWaybillT);
             this.Controls.Add(this.epcLabel);
             this.Controls.Add(this.readTag);
             this.Menu = this.mainMenu1;

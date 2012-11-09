@@ -129,8 +129,9 @@ namespace com.abitech.rfid
         {
             try
             {
+#if DEBUG
                 MessageBox.Show(jsonString);
-
+#endif
                 var jsonHashString = "&checksum=";
                 var inHashBytes = UniEncoding.GetBytes(jsonString);
                 var outHashBytes = Sha1.ComputeHash(inHashBytes);
@@ -159,8 +160,9 @@ namespace com.abitech.rfid
                 {
                     var responseStr = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
+#if DEBUG
                     MessageBox.Show(responseStr);
-                    
+#endif      
                     //Использовал самописный десериализатор, т.к. CodeBetter, цитирую:
                     //On the whole I found it works; From memory it does not deal with nulls nicely,
                     //and I think I had to tweak datetime serialisation to make it work the way

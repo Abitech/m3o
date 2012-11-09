@@ -21,7 +21,7 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
-    <ApplicationIcon>RFID1.ico</ApplicationIcon>
+    <ApplicationIcon>RFID2.ico</ApplicationIcon>
     <DelaySign>false</DelaySign>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -67,39 +67,17 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=1fdb50b1b62b4c84, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataGrid" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_Continue.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Continue.Designer.cs">
-      <DependentUpon>Form_Continue.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Read.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Read.Designer.cs">
-      <DependentUpon>Form_Read.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Setting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Setting.Designer.cs">
-      <DependentUpon>Form_Setting.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_NewOrder.cs">
       <SubType>Form</SubType>
@@ -115,21 +93,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form_Continue.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>Form_Continue.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Form_Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Read.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>Form_Read.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Setting.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>Form_Setting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_NewOrder.resx">
       <DependentUpon>Form_NewOrder.cs</DependentUpon>
@@ -164,7 +130,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RFID1.ico" />
+    <Content Include="RFID2.ico" />
     <Content Include="RFID\config.xml" />
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />

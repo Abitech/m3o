@@ -14,8 +14,8 @@ namespace RFID_UHF_Net
     public partial class Form_Waybill : Form
     {
         CAENRFIDTag tag;
-        TubesOrder waybill;
         TubesOrder order;
+        string epc;
 
         public Form_Waybill(ListViewItem row)
         {
@@ -49,23 +49,22 @@ namespace RFID_UHF_Net
                 return;
             }
 
-            waybill = new TubesOrder
-                {
-                trackId = order.trackId,
-                oldTubesNumber =  Int32.Parse(oldTubesNumberT.Text),
-                newTubesNumber =  Int32.Parse(newTubesNumberT.Text),
-                epc = BitConverter.ToString(tag.GetId()),
-                dateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                };
+            epc = BitConverter.ToString(tag.GetId()).Replace("-", "");
 
-            MessageBox.Show(oldTubesNumberT.Text);
-            MessageBox.Show(waybill.oldTubesNumber.ToString());
-
-            epcLabel.Text = waybill.epc;
+            epcLabel.Text = epc;
         }
 
         private void sendWaybill_Click(object sender, EventArgs e)
         {
+            var waybill = new TubesOrder
+            {
+                trackId = order.trackId,
+                oldTubesNumber = Int32.Parse(oldTubesNumberT.Text),
+                newTubesNumber = Int32.Parse(newTubesNumberT.Text),
+                epc = this.epc,
+                dateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            };
+
             RfidReader.web.SendWaybill(waybill);
         }
     }

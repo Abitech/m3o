@@ -9,8 +9,7 @@ namespace RFID_UHF_Net
     {
         [DllImport("Coredll.dll", EntryPoint = "PlaySound", CharSet = CharSet.Auto)]
         public static extern int PlaySound(String pszSound, int hmod, int falgs);
-        
-        
+                
 
         public enum SND
         {

@@ -54,7 +54,7 @@ namespace RFID_UHF_Net
         {            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void decline_Order_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
 
@@ -66,14 +66,12 @@ namespace RFID_UHF_Net
 
             if (result == DialogResult.OK)
             {
-                RfidReader.web.UpdateOrderStatus((TubesOrder)orderLog.FocusedItem.Tag, TubesOrder.OrderStatus.Declined);
+                RfidReader.web.UpdateOrderStatus(order, TubesOrder.OrderStatus.Declined);
                 row.SubItems[3].Text = order.orderStatus.ToString();
             }
-
-            Sync();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void complete_Order_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
 
@@ -85,12 +83,12 @@ namespace RFID_UHF_Net
 
             if (result == DialogResult.OK)
             {
-                RfidReader.web.UpdateOrderStatus((TubesOrder)orderLog.FocusedItem.Tag, TubesOrder.OrderStatus.Completed);
+                RfidReader.web.UpdateOrderStatus(order, TubesOrder.OrderStatus.Completed);
                 row.SubItems[3].Text = order.orderStatus.ToString();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void attach_Waybill_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
             if (row == null) return;

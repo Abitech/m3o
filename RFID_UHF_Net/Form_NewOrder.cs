@@ -26,6 +26,8 @@ namespace RFID_UHF_Net
 
         private void CreateNewOrder_Click(object sender, EventArgs e)
         {
+            OrderDispatchingStatusT.Visible = false;
+
             var order = new TubesOrder
             {
             orderType = ((ComboBoxItem)tubesDiameterT.SelectedItem).id,

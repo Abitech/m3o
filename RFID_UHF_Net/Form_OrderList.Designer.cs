@@ -83,7 +83,7 @@
             this.button1.Size = new System.Drawing.Size(111, 20);
             this.button1.TabIndex = 1;
             this.button1.Text = "Закрыть заявку";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.complete_Order_Click);
             // 
             // button2
             // 
@@ -92,7 +92,7 @@
             this.button2.Size = new System.Drawing.Size(69, 20);
             this.button2.TabIndex = 2;
             this.button2.Text = "Отменить";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.decline_Order_Click);
             // 
             // button3
             // 
@@ -101,7 +101,7 @@
             this.button3.Size = new System.Drawing.Size(236, 26);
             this.button3.TabIndex = 3;
             this.button3.Text = "Прикрепить накладную";
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.attach_Waybill_Click);
             // 
             // Form_OrderList
             // 
