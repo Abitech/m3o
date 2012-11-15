@@ -151,6 +151,6 @@
   -->
   <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)config.xml" "$(ProjectDir)$(OutDir)config.xml"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)\RFID\config.xml" "$(ProjectDir)$(OutDir)config.xml"</PostBuildEvent>
   </PropertyGroup>
 </Project>
