@@ -47,7 +47,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <DefineConstants>PocketPC</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -120,6 +120,7 @@
     <Compile Include="RFID\Reader.cs" />
     <Compile Include="RFID\Json.cs" />
     <Compile Include="RFID\Orders.cs" />
+    <Compile Include="RFID\TryParse.cs" />
     <Compile Include="RFID\WebClient.cs" />
     <Compile Include="SoundClass.cs" />
     <Compile Include="Form_Waybill.cs">
@@ -128,6 +129,7 @@
     <Compile Include="Form_Waybill.Designer.cs">
       <DependentUpon>Form_Waybill.cs</DependentUpon>
     </Compile>
+    <Compile Include="RFID\Strings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RFID2.ico" />

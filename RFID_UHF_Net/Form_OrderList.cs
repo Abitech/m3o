@@ -13,37 +13,47 @@ namespace RFID_UHF_Net
 {
     public partial class Form_OrderList : Form
     {
-        private void Sync()
+        private Strings strings = Resources.strings;
+
+        public bool Sync()
         {
             orderLog.Items.Clear();
 
             var orders = RfidReader.web.SyncronizeOrders();
 
+            if (orders == null)
+            {
+                MessageBox.Show(strings["SyncingOrderListFailure"]);
+                return false;
+            }
+
             foreach (var order in orders)
             {
-                var item = new ListViewItem { Text = order.districtId.ToString() }; //order.trackId.ToString()
+                var item = new ListViewItem { Text = order.groupUnit.ToString() + "/" + order.districtId.ToString() };
+                item.SubItems.Add(order.orderType == 0 ? strings["OrderTypeTubesDelivery"] : strings["OrderTypeTubesCleaning"]);
                 item.SubItems.Add(order.TubeDiameter[order.tubesDiameter]);
                 item.SubItems.Add(order.tubesNumber.ToString());
+                item.SubItems.Add(order.shippedTubes.ToString());
 
-                var statusString = String.Empty;
-
-                if (order.orderStatus == TubesOrder.OrderStatus.New)
-                    statusString = "В обработке";
-                else if (order.orderStatus == TubesOrder.OrderStatus.Declined)
-                    statusString = "Отменена";
-                else if (order.orderStatus == TubesOrder.OrderStatus.Completed)
-                    statusString = "Обработана";
-
-                item.SubItems.Add(statusString);
                 item.Tag = order;
                 orderLog.Items.Add(item);
             }
+
+            return true;
         }
 
         public Form_OrderList()
         {
             InitializeComponent();
-            Sync();
+
+            DistrictId.Text = strings["DistrictId"];
+            TubesDiameter.Text = strings["TubesDiameter"];
+            OrderedTubesAmount.Text = strings["OrderedTubesAmount"];
+            ShippedTubesAmount.Text = strings["ShippedTubesAmount"];
+            CloseOrder.Text = strings["CloseOrder"];
+            CancelOrder.Text = strings["CancelOrder"];
+            this.Text = "";
+            AttachWaybill.Text = strings["AttachWaybill"];
         }
 
         private void orderLog_SelectedIndexChanged(object sender, EventArgs e)
@@ -58,16 +68,20 @@ namespace RFID_UHF_Net
         {
             var row = orderLog.FocusedItem;
 
-            if (row == null) return;
+            if (row == null)
+            {
+                MessageBox.Show(strings["OrderNotSelected"]);
+                return;
+            }
 
             var order = (TubesOrder)row.Tag;
 
-            var result = MessageBox.Show("Отменить заявку?", "Отмена заявки", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            var result = MessageBox.Show(strings["DoYouWantToCancelOrder"], "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (result == DialogResult.OK)
             {
                 RfidReader.web.UpdateOrderStatus(order, TubesOrder.OrderStatus.Declined);
-                row.SubItems[3].Text = order.orderStatus.ToString();
+                Sync();
             }
         }
 
@@ -75,26 +89,36 @@ namespace RFID_UHF_Net
         {
             var row = orderLog.FocusedItem;
 
-            if (row == null) return;
+            if (row == null)
+            {
+                MessageBox.Show(strings["OrderNotSelected"]);
+                return;
+            }
 
             var order = (TubesOrder)row.Tag;
-            
-            var result = MessageBox.Show("Закрыть заявку?", "Закрытие заявки", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            var result = MessageBox.Show(strings["DoYouWantToCloseOrder"], "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (result == DialogResult.OK)
             {
                 RfidReader.web.UpdateOrderStatus(order, TubesOrder.OrderStatus.Completed);
-                row.SubItems[3].Text = order.orderStatus.ToString();
+                Sync();
             }
         }
 
         private void attach_Waybill_Click(object sender, EventArgs e)
         {
             var row = orderLog.FocusedItem;
-            if (row == null) return;
+
+            if (row == null)
+            {
+                MessageBox.Show(strings["OrderNotSelected"]);
+                return;
+            }
 
             var waybillForm = new Form_Waybill(row);
             waybillForm.Show();
+            this.Close();
         }        
     }       
 }

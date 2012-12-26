@@ -29,70 +29,118 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Button sendWaybillT;
+            this.SendWaybill = new System.Windows.Forms.Button();
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
-            this.readTag = new System.Windows.Forms.Button();
-            this.epcLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.oldTubesNumberT = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.newTubesNumberT = new System.Windows.Forms.TextBox();
-            sendWaybillT = new System.Windows.Forms.Button();
+            this.ReadTag = new System.Windows.Forms.Button();
+            this.EpcLabel = new System.Windows.Forms.Label();
+            this.TubesNumber = new System.Windows.Forms.TextBox();
+            this.TubeStatusNew = new System.Windows.Forms.RadioButton();
+            this.TubeStatusOld = new System.Windows.Forms.RadioButton();
+            this.TubeStatusT = new System.Windows.Forms.Label();
+            this.TubesNumberT = new System.Windows.Forms.Label();
+            this.WaybillDispatchingStatus = new System.Windows.Forms.Label();
+            this.WaybillNumberT = new System.Windows.Forms.Label();
+            this.WaybillNumber = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // sendWaybillT
+            // SendWaybill
             // 
-            sendWaybillT.Location = new System.Drawing.Point(4, 203);
-            sendWaybillT.Name = "sendWaybillT";
-            sendWaybillT.Size = new System.Drawing.Size(100, 20);
-            sendWaybillT.TabIndex = 13;
-            sendWaybillT.Text = "Отправить";
-            sendWaybillT.Click += new System.EventHandler(this.sendWaybill_Click);
+            this.SendWaybill.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.SendWaybill.Location = new System.Drawing.Point(4, 235);
+            this.SendWaybill.Name = "SendWaybill";
+            this.SendWaybill.Size = new System.Drawing.Size(233, 20);
+            this.SendWaybill.TabIndex = 13;
+            this.SendWaybill.Text = "Жөнелту";
+            this.SendWaybill.Click += new System.EventHandler(this.sendWaybill_Click);
             // 
-            // readTag
+            // ReadTag
             // 
-            this.readTag.Location = new System.Drawing.Point(4, 38);
-            this.readTag.Name = "readTag";
-            this.readTag.Size = new System.Drawing.Size(233, 18);
-            this.readTag.TabIndex = 0;
-            this.readTag.Text = "Считать транспортную метку";
-            this.readTag.Click += new System.EventHandler(this.button1_Click);
+            this.ReadTag.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.ReadTag.Location = new System.Drawing.Point(4, 46);
+            this.ReadTag.Name = "ReadTag";
+            this.ReadTag.Size = new System.Drawing.Size(233, 18);
+            this.ReadTag.TabIndex = 0;
+            this.ReadTag.Text = "Транспорттық белгіні есептеу";
+            this.ReadTag.Click += new System.EventHandler(this.ReadTag_Click);
             // 
-            // epcLabel
+            // EpcLabel
             // 
-            this.epcLabel.Location = new System.Drawing.Point(4, 11);
-            this.epcLabel.Name = "epcLabel";
-            this.epcLabel.Size = new System.Drawing.Size(233, 24);
+            this.EpcLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular);
+            this.EpcLabel.Location = new System.Drawing.Point(4, 0);
+            this.EpcLabel.Name = "EpcLabel";
+            this.EpcLabel.Size = new System.Drawing.Size(233, 43);
+            this.EpcLabel.Tag = "";
+            this.EpcLabel.Text = "Номер транспортного средства";
+            this.EpcLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.EpcLabel.ParentChanged += new System.EventHandler(this.epcLabel_ParentChanged);
             // 
-            // label3
+            // TubesNumber
             // 
-            this.label3.Location = new System.Drawing.Point(4, 106);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 20);
-            this.label3.Text = "Старых труб";
+            this.TubesNumber.Location = new System.Drawing.Point(112, 137);
+            this.TubesNumber.Name = "TubesNumber";
+            this.TubesNumber.Size = new System.Drawing.Size(100, 21);
+            this.TubesNumber.TabIndex = 14;
             // 
-            // oldTubesNumberT
+            // TubeStatusNew
             // 
-            this.oldTubesNumberT.Location = new System.Drawing.Point(4, 129);
-            this.oldTubesNumberT.Name = "oldTubesNumberT";
-            this.oldTubesNumberT.Size = new System.Drawing.Size(100, 21);
-            this.oldTubesNumberT.TabIndex = 14;
-            this.oldTubesNumberT.Text = "0";
+            this.TubeStatusNew.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+            this.TubeStatusNew.Location = new System.Drawing.Point(5, 91);
+            this.TubeStatusNew.Name = "TubeStatusNew";
+            this.TubeStatusNew.Size = new System.Drawing.Size(100, 20);
+            this.TubeStatusNew.TabIndex = 23;
+            this.TubeStatusNew.Text = "Жаңа";
+            this.TubeStatusNew.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // label1
+            // TubeStatusOld
             // 
-            this.label1.Location = new System.Drawing.Point(4, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 20);
-            this.label1.Text = "Новых труб";
+            this.TubeStatusOld.Location = new System.Drawing.Point(6, 117);
+            this.TubeStatusOld.Name = "TubeStatusOld";
+            this.TubeStatusOld.Size = new System.Drawing.Size(100, 20);
+            this.TubeStatusOld.TabIndex = 24;
+            this.TubeStatusOld.Text = "Ескі";
+            this.TubeStatusOld.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // newTubesNumberT
+            // TubeStatusT
             // 
-            this.newTubesNumberT.Location = new System.Drawing.Point(4, 82);
-            this.newTubesNumberT.Name = "newTubesNumberT";
-            this.newTubesNumberT.Size = new System.Drawing.Size(100, 21);
-            this.newTubesNumberT.TabIndex = 19;
-            this.newTubesNumberT.Text = "0";
+            this.TubeStatusT.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+            this.TubeStatusT.Location = new System.Drawing.Point(5, 68);
+            this.TubeStatusT.Name = "TubeStatusT";
+            this.TubeStatusT.Size = new System.Drawing.Size(100, 20);
+            this.TubeStatusT.Text = "НКҚ күйі";
+            // 
+            // TubesNumberT
+            // 
+            this.TubesNumberT.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+            this.TubesNumberT.Location = new System.Drawing.Point(111, 114);
+            this.TubesNumberT.Name = "TubesNumberT";
+            this.TubesNumberT.Size = new System.Drawing.Size(100, 20);
+            this.TubesNumberT.Text = "НКҚ саны";
+            // 
+            // WaybillDispatchingStatus
+            // 
+            this.WaybillDispatchingStatus.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular);
+            this.WaybillDispatchingStatus.Location = new System.Drawing.Point(4, 161);
+            this.WaybillDispatchingStatus.Name = "WaybillDispatchingStatus";
+            this.WaybillDispatchingStatus.Size = new System.Drawing.Size(233, 71);
+            this.WaybillDispatchingStatus.Tag = "";
+            this.WaybillDispatchingStatus.Text = "Статус отправки накладной и сообщения о  некорректно заполненных полях";
+            this.WaybillDispatchingStatus.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // WaybillNumberT
+            // 
+            this.WaybillNumberT.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+            this.WaybillNumberT.Location = new System.Drawing.Point(112, 67);
+            this.WaybillNumberT.Name = "WaybillNumberT";
+            this.WaybillNumberT.Size = new System.Drawing.Size(100, 20);
+            this.WaybillNumberT.Text = "ТТЖ №";
+            // 
+            // WaybillNumber
+            // 
+            this.WaybillNumber.Location = new System.Drawing.Point(111, 90);
+            this.WaybillNumber.Name = "WaybillNumber";
+            this.WaybillNumber.Size = new System.Drawing.Size(100, 21);
+            this.WaybillNumber.TabIndex = 27;
+            this.WaybillNumber.TextChanged += new System.EventHandler(this.wayBillNumberT_TextChanged);
             // 
             // Form_Waybill
             // 
@@ -100,28 +148,35 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
-            this.Controls.Add(this.newTubesNumberT);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.oldTubesNumberT);
-            this.Controls.Add(sendWaybillT);
-            this.Controls.Add(this.epcLabel);
-            this.Controls.Add(this.readTag);
+            this.Controls.Add(this.WaybillNumber);
+            this.Controls.Add(this.WaybillNumberT);
+            this.Controls.Add(this.WaybillDispatchingStatus);
+            this.Controls.Add(this.TubesNumberT);
+            this.Controls.Add(this.TubeStatusT);
+            this.Controls.Add(this.TubeStatusOld);
+            this.Controls.Add(this.TubeStatusNew);
+            this.Controls.Add(this.TubesNumber);
+            this.Controls.Add(this.SendWaybill);
+            this.Controls.Add(this.EpcLabel);
+            this.Controls.Add(this.ReadTag);
             this.Menu = this.mainMenu1;
             this.Name = "Form_Waybill";
-            this.Text = "Адресная метка";
-            this.Load += new System.EventHandler(this.TagsOperation_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button readTag;
-        private System.Windows.Forms.Label epcLabel;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox oldTubesNumberT;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox newTubesNumberT;
+        private System.Windows.Forms.Button ReadTag;
+        private System.Windows.Forms.Label EpcLabel;
+        private System.Windows.Forms.TextBox TubesNumber;
+        private System.Windows.Forms.RadioButton TubeStatusNew;
+        private System.Windows.Forms.RadioButton TubeStatusOld;
+        private System.Windows.Forms.Label TubeStatusT;
+        private System.Windows.Forms.Label TubesNumberT;
+        private System.Windows.Forms.Label WaybillDispatchingStatus;
+        private System.Windows.Forms.Label WaybillNumberT;
+        private System.Windows.Forms.TextBox WaybillNumber;
+        private System.Windows.Forms.Button SendWaybill;
     }
 }

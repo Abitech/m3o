@@ -6,6 +6,7 @@ using System.Threading;
 using com.caen.RFIDLibrary;
 using RFID_UHF_Net;
 
+
 namespace com.abitech.rfid
 {
     static class RfidReader
@@ -54,7 +55,7 @@ namespace com.abitech.rfid
             StringBuilder sb = new StringBuilder(data.Length * 3);
             foreach (byte b in data)
                 sb.Append(Convert.ToString(b, 16).PadLeft(2, '0'));
-            return sb.ToString().ToUpper();
+            return sb.ToString().ToUpper().Replace("-", "");
         }
 
         public static bool ReadTag(CAENRFIDTag tag, MemoryBankType MemType, int nStartAddr, int nLength, out byte[] data)

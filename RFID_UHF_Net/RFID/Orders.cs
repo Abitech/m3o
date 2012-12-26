@@ -18,7 +18,6 @@ namespace com.abitech.rfid
 
     public class TubesOrder
     {
-        public enum DeliveryStatus { Unshipped = 0, Shipped = 1 };
         public enum OrderStatus { New = 0, Completed = 3, Declined = 4 };
         public enum OrderType { Delivery = 0, Dispatch = 1 };
         public string[] TubeDiameter = new string[4] { "60", "73", "73 выс", "89" };
@@ -26,17 +25,28 @@ namespace com.abitech.rfid
         public int? trackId;
 
         public int orderType;
+        public int groupUnit;
         public int districtId;
         public int tubesDiameter;
         public int tubesNumber;
 
-        //Товарно-транспортная накладная
-        public int oldTubesNumber;
-        public int newTubesNumber;
-        public string epc;
+        public int shippedTubes; //Общее количество труб по всем ТТН
 
         public OrderStatus orderStatus;
         public string dateCreated;
-        public DeliveryStatus deliveryStatus = DeliveryStatus.Unshipped;
+    }
+
+    /// <summary>
+    /// ТТН
+    /// </summary>
+    public class Waybill
+    {
+        public int? trackId;
+        public int waybillNumber;
+        public int waybillTubesType;
+        public int waybillTubesNumber;
+        public string epc;
+        public string licencePlateNumber; // Номер транспортного средства
+        public string dateCreated;
     }
 }

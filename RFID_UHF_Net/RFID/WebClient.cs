@@ -5,8 +5,8 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeBetter.Json;
 using System.Windows.Forms;
+using CodeBetter.Json;
 
 namespace com.abitech.rfid
 {
@@ -72,19 +72,14 @@ namespace com.abitech.rfid
         {
             var url = "order/" + Configuration.DeviceKey + "/";
 
-            return SendDocument(order, url);
+            return SendPostData(url, Converter.Serialize(order));
         }
 
-        public RpcResponse SendWaybill(TubesOrder waybill)
+        public RpcResponse SendWaybill(Waybill waybill)
         {
             var url = "waybill/" + Configuration.DeviceKey + "/";
 
-            return SendDocument(waybill, url);
-        }
-
-        RpcResponse SendDocument(TubesOrder order, string url)
-        {
-            return SendPostData(url, Converter.Serialize(order));
+            return SendPostData(url, Converter.Serialize(waybill));
         }
 
         /// <summary>
@@ -96,14 +91,19 @@ namespace com.abitech.rfid
             var response = SendPostData(url, String.Empty);
             //var json = "{\"result\":[{\"trackId\":\"1\",\"districtId\":\"100\",\"tubesLength\":\"1200\",\"tubesNumber\":\"100\",\"orderStatus\":\"0\"},{\"trackId\":\"2\",\"districtId\":\"1100\",\"tubesLength\":\"1200\",\"tubesNumber\":\"100\",\"orderStatus\":\"0\"},{\"trackId\":\"3\",\"districtId\":\"12\",\"tubesLength\":\"54\",\"tubesNumber\":\"87\",\"orderStatus\":\"0\"},{\"trackId\":\"4\",\"districtId\":\"123\",\"tubesLength\":\"321\",\"tubesNumber\":\"456\",\"orderStatus\":\"0\"}],\"error\":null}";
             //var response = RfidJson.Deserialize(json);
-            
+
+            if (response.status != RpcResponse.StatusCode.Ok)
+            {
+                return null;
+            }
+
             var jsonOrders = Regex.Split(response.result.Replace("\"", ""), "\\},\\{");
 
             var orders = new List<TubesOrder>();
 
             foreach (var jsonOrder in jsonOrders)
             {
-                var match = Regex.Match(jsonOrder, ".*trackId:(\\d+).*districtId:(\\d+).*tubesDiameter:(\\d+).*tubesNumber:(\\d+).*orderStatus:(\\d+).*");
+                var match = Regex.Match(jsonOrder, ".*trackId:(\\d+).*districtId:(\\d+).*tubesDiameter:(\\d+).*tubesNumber:(\\d+).*orderStatus:(\\d+).*shippedTubes:(\\d+).*groupUnit:(\\d+).*orderType:(\\d+).*");
                 if (match.Success)
                 {
                     orders.Add(new TubesOrder()
@@ -112,7 +112,10 @@ namespace com.abitech.rfid
                             districtId = Int32.Parse(match.Groups[2].Value),
                             tubesDiameter = Int32.Parse(match.Groups[3].Value),
                             tubesNumber = Int32.Parse(match.Groups[4].Value),
-                            orderStatus = (TubesOrder.OrderStatus)Int32.Parse(match.Groups[5].Value)
+                            orderStatus = (TubesOrder.OrderStatus)Int32.Parse(match.Groups[5].Value),
+                            shippedTubes = Int32.Parse(match.Groups[6].Value),
+                            groupUnit = Int32.Parse(match.Groups[7].Value),
+                            orderType = Int32.Parse(match.Groups[8].Value)
                         });
                 }
             }
@@ -129,9 +132,10 @@ namespace com.abitech.rfid
         {
             try
             {
-#if DEBUG
+                #if DEBUG
                 MessageBox.Show(jsonString);
-#endif
+                #endif
+
                 var jsonHashString = "&checksum=";
                 var inHashBytes = UniEncoding.GetBytes(jsonString);
                 var outHashBytes = Sha1.ComputeHash(inHashBytes);
@@ -151,6 +155,7 @@ namespace com.abitech.rfid
                 webRequest.ContentType = "application/x-www-form-urlencoded";
                 webRequest.ContentLength = byteArray.Length;
                 webRequest.Timeout = 5000;
+
                 var webpageStream = webRequest.GetRequestStream();
                 webpageStream.Write(byteArray, 0, byteArray.Length);
                 webpageStream.Close();
@@ -160,9 +165,9 @@ namespace com.abitech.rfid
                 {
                     var responseStr = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-#if DEBUG
+                    #if DEBUG
                     MessageBox.Show(responseStr);
-#endif      
+                    #endif      
                     //Использовал самописный десериализатор, т.к. CodeBetter, цитирую:
                     //On the whole I found it works; From memory it does not deal with nulls nicely,
                     //and I think I had to tweak datetime serialisation to make it work the way
@@ -179,6 +184,11 @@ namespace com.abitech.rfid
                 var response = new RpcResponse();
                 response.result = e.Message;
                 response.status = RpcResponse.StatusCode.InternalServerError;
+
+                #if DEBUG
+                MessageBox.Show(response.result);
+                #endif
+
                 return response;
             }
         }

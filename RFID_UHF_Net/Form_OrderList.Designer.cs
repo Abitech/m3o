@@ -31,22 +31,25 @@
         {
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.orderLog = new System.Windows.Forms.ListView();
-            this.districtId = new System.Windows.Forms.ColumnHeader();
-            this.tubesDiameter = new System.Windows.Forms.ColumnHeader();
-            this.tubesNumber = new System.Windows.Forms.ColumnHeader();
-            this.orderStatus = new System.Windows.Forms.ColumnHeader();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.DistrictId = new System.Windows.Forms.ColumnHeader();
+            this.TubesDiameter = new System.Windows.Forms.ColumnHeader();
+            this.OrderedTubesAmount = new System.Windows.Forms.ColumnHeader();
+            this.ShippedTubesAmount = new System.Windows.Forms.ColumnHeader();
+            this.CloseOrder = new System.Windows.Forms.Button();
+            this.CancelOrder = new System.Windows.Forms.Button();
+            this.AttachWaybill = new System.Windows.Forms.Button();
+            this.orderType = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // orderLog
             // 
             this.orderLog.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.orderLog.Columns.Add(this.districtId);
-            this.orderLog.Columns.Add(this.tubesDiameter);
-            this.orderLog.Columns.Add(this.tubesNumber);
-            this.orderLog.Columns.Add(this.orderStatus);
+            this.orderLog.Columns.Add(this.DistrictId);
+            this.orderLog.Columns.Add(this.orderType);
+            this.orderLog.Columns.Add(this.TubesDiameter);
+            this.orderLog.Columns.Add(this.OrderedTubesAmount);
+            this.orderLog.Columns.Add(this.ShippedTubesAmount);
+            this.orderLog.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
             this.orderLog.FullRowSelect = true;
             this.orderLog.Location = new System.Drawing.Point(0, 0);
             this.orderLog.Name = "orderLog";
@@ -56,52 +59,60 @@
             this.orderLog.ItemActivate += new System.EventHandler(this.orderLog_ItemActivated);
             this.orderLog.SelectedIndexChanged += new System.EventHandler(this.orderLog_SelectedIndexChanged);
             // 
-            // districtId
+            // DistrictId
             // 
-            this.districtId.Text = "№";
-            this.districtId.Width = 38;
+            this.DistrictId.Text = "Ұңғыма нөмірі";
+            this.DistrictId.Width = 56;
             // 
-            // tubesDiameter
+            // TubesDiameter
             // 
-            this.tubesDiameter.Text = "Диаметр, мм";
-            this.tubesDiameter.Width = 60;
+            this.TubesDiameter.Text = "Диаметр, мм";
+            this.TubesDiameter.Width = 66;
             // 
-            // tubesNumber
+            // OrderedTubesAmount
             // 
-            this.tubesNumber.Text = "Кол-во";
-            this.tubesNumber.Width = 77;
+            this.OrderedTubesAmount.Text = "Тапсырыс бойынша";
+            this.OrderedTubesAmount.Width = 77;
             // 
-            // orderStatus
+            // ShippedTubesAmount
             // 
-            this.orderStatus.Text = "Статус";
-            this.orderStatus.Width = 62;
+            this.ShippedTubesAmount.Text = "Қабылданған саны";
+            this.ShippedTubesAmount.Width = 98;
             // 
-            // button1
+            // CloseOrder
             // 
-            this.button1.Location = new System.Drawing.Point(4, 236);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Закрыть заявку";
-            this.button1.Click += new System.EventHandler(this.complete_Order_Click);
+            this.CloseOrder.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.CloseOrder.Location = new System.Drawing.Point(4, 236);
+            this.CloseOrder.Name = "CloseOrder";
+            this.CloseOrder.Size = new System.Drawing.Size(125, 20);
+            this.CloseOrder.TabIndex = 1;
+            this.CloseOrder.Text = "Тапсырысты жабу";
+            this.CloseOrder.Click += new System.EventHandler(this.complete_Order_Click);
             // 
-            // button2
+            // CancelOrder
             // 
-            this.button2.Location = new System.Drawing.Point(168, 236);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 20);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Отменить";
-            this.button2.Click += new System.EventHandler(this.decline_Order_Click);
+            this.CancelOrder.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.CancelOrder.Location = new System.Drawing.Point(135, 236);
+            this.CancelOrder.Name = "CancelOrder";
+            this.CancelOrder.Size = new System.Drawing.Size(102, 20);
+            this.CancelOrder.TabIndex = 2;
+            this.CancelOrder.Text = "Отменить заявку";
+            this.CancelOrder.Click += new System.EventHandler(this.decline_Order_Click);
             // 
-            // button3
+            // AttachWaybill
             // 
-            this.button3.Location = new System.Drawing.Point(4, 204);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(236, 26);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Прикрепить накладную";
-            this.button3.Click += new System.EventHandler(this.attach_Waybill_Click);
+            this.AttachWaybill.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.AttachWaybill.Location = new System.Drawing.Point(4, 204);
+            this.AttachWaybill.Name = "AttachWaybill";
+            this.AttachWaybill.Size = new System.Drawing.Size(236, 26);
+            this.AttachWaybill.TabIndex = 3;
+            this.AttachWaybill.Text = "Жүкқұжатты тіркеу";
+            this.AttachWaybill.Click += new System.EventHandler(this.attach_Waybill_Click);
+            // 
+            // orderType
+            // 
+            this.orderType.Text = "Тип заявки";
+            this.orderType.Width = 60;
             // 
             // Form_OrderList
             // 
@@ -109,13 +120,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.AttachWaybill);
+            this.Controls.Add(this.CancelOrder);
+            this.Controls.Add(this.CloseOrder);
             this.Controls.Add(this.orderLog);
             this.Menu = this.mainMenu1;
             this.Name = "Form_OrderList";
-            this.Text = "Список заявок";
+            this.Text = "Тапсырыстар тізімі";
             this.ResumeLayout(false);
 
         }
@@ -123,12 +134,13 @@
         #endregion
 
         private System.Windows.Forms.ListView orderLog;
-        private System.Windows.Forms.ColumnHeader districtId;
-        private System.Windows.Forms.ColumnHeader tubesDiameter;
-        private System.Windows.Forms.ColumnHeader tubesNumber;
-        private System.Windows.Forms.ColumnHeader orderStatus;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ColumnHeader DistrictId;
+        private System.Windows.Forms.ColumnHeader TubesDiameter;
+        private System.Windows.Forms.ColumnHeader OrderedTubesAmount;
+        private System.Windows.Forms.Button CloseOrder;
+        private System.Windows.Forms.Button CancelOrder;
+        private System.Windows.Forms.Button AttachWaybill;
+        private System.Windows.Forms.ColumnHeader ShippedTubesAmount;
+        private System.Windows.Forms.ColumnHeader orderType;
     }
 }

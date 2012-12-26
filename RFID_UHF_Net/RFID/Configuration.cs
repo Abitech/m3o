@@ -12,6 +12,9 @@ namespace com.abitech.rfid
         public string Server;
         public string DeviceKey;
         public string Location;
+        public string Language;
+        public string Team;
+
         public int Role;
 
         /// <summary>
