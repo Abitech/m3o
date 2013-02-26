@@ -9,10 +9,19 @@ using RFID_UHF_Net;
 
 namespace com.abitech.rfid
 {
-    static class RfidReader
+	enum MemoryBankType
+	{
+		Other = -1,
+		Reserved = 0,
+		EPC = 1,
+		TID = 2,
+		USER = 3
+	};
+
+    class RfidReader
     {
         public static RfidWebClient web;
-
+        public static Configuration configuration;
         public static CAENRFIDReader reader;
         public static CAENRFIDLogicalSource source;
 
@@ -73,7 +82,6 @@ namespace com.abitech.rfid
             return true;
         }
 
-
         public static bool WriteTag(CAENRFIDTag tag, MemoryBankType MemType, int nStartAddr, int nLength, byte[] data)
         {
             try
@@ -86,6 +94,5 @@ namespace com.abitech.rfid
                 return false;
             }
         }
-
     }
 }

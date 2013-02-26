@@ -19,7 +19,7 @@ namespace RFID_UHF_Net
                 return true;
             }
 
-            catch(Exception Ex)
+            catch(Exception e)
             {
                 return false;
             }

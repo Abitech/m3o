@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3FE9D799-F681-4C38-8518-BDF308EBCF56}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FormFactorID>
     </FormFactorID>
-    <DeployDirPrefix>\</DeployDirPrefix>
+    <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
@@ -64,6 +64,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\CodeBetter.Json.CF.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -73,67 +74,90 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_Main.cs">
+    <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Main.Designer.cs">
-      <DependentUpon>Form_Main.cs</DependentUpon>
+    <Compile Include="Forms\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_NewOrder.cs">
+    <Compile Include="Forms\Act.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_NewOrder.Designer.cs">
-      <DependentUpon>Form_NewOrder.cs</DependentUpon>
+    <Compile Include="Forms\Act.Designer.cs">
+      <DependentUpon>Act.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_OrderList.cs">
+    <Compile Include="Forms\Order.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_OrderList.Designer.cs">
-      <DependentUpon>Form_OrderList.cs</DependentUpon>
+    <Compile Include="Forms\Order.Designer.cs">
+      <DependentUpon>Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrderList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrderList.Designer.cs">
+      <DependentUpon>OrderList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Repair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Repair.Designer.cs">
+      <DependentUpon>Repair.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form_Main.resx">
+    <EmbeddedResource Include="Forms\Act.resx">
+      <DependentUpon>Act.cs</DependentUpon>
       <SubType>Designer</SubType>
-      <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_NewOrder.resx">
-      <DependentUpon>Form_NewOrder.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Main.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_OrderList.resx">
-      <DependentUpon>Form_OrderList.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Order.resx">
+      <DependentUpon>Order.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrderList.resx">
+      <DependentUpon>OrderList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Repair.resx">
+      <DependentUpon>Repair.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Waybill.resx">
-      <DependentUpon>Form_Waybill.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Waybill.resx">
+      <DependentUpon>Waybill.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="RFID\Configuration.cs" />
-    <Compile Include="RFID\Reader.cs" />
-    <Compile Include="RFID\Json.cs" />
-    <Compile Include="RFID\Orders.cs" />
-    <Compile Include="RFID\TryParse.cs" />
-    <Compile Include="RFID\WebClient.cs" />
+    <Compile Include="Client\Configuration.cs" />
+    <Compile Include="Client\Reader.cs" />
+    <Compile Include="Client\Json.cs" />
+    <Compile Include="Client\Messages.cs" />
+    <Compile Include="Client\TryParse.cs" />
+    <Compile Include="Client\WebClient.cs" />
     <Compile Include="SoundClass.cs" />
-    <Compile Include="Form_Waybill.cs">
+    <Compile Include="Forms\Waybill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Waybill.Designer.cs">
-      <DependentUpon>Form_Waybill.cs</DependentUpon>
+    <Compile Include="Forms\Waybill.Designer.cs">
+      <DependentUpon>Waybill.cs</DependentUpon>
     </Compile>
-    <Compile Include="RFID\Strings.cs" />
+    <Compile Include="Client\Strings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RFID2.ico" />
-    <Content Include="RFID\config.xml" />
+    <Content Include="Client\config.xml" />
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
@@ -153,6 +177,6 @@
   -->
   <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)\RFID\config.xml" "$(ProjectDir)$(OutDir)config.xml"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)\Client\config.xml" "$(ProjectDir)$(OutDir)config.xml"</PostBuildEvent>
   </PropertyGroup>
 </Project>

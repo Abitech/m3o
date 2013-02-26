@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using RFID_UHF_Net.Forms;
 
 namespace RFID_UHF_Net
 {
@@ -12,7 +13,7 @@ namespace RFID_UHF_Net
         [MTAThread]
         static void Main()
         {
-            Application.Run(new Form_Main());
+            Application.Run(new MainForm());
         }
     }
 }

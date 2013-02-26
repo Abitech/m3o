@@ -4,6 +4,8 @@ using System.IO;
 
 namespace com.abitech.rfid
 {
+    public enum Roles { repairForeman = 1, tubeMaster = 2 };
+
     /// <summary>
     /// Класс, хранящий данные о соединении с сервером
     /// </summary>
@@ -14,8 +16,12 @@ namespace com.abitech.rfid
         public string Location;
         public string Language;
         public string Team;
+        public Roles Role;
 
-        public int Role;
+        public Configuration()
+        {
+            Role = Roles.repairForeman;
+        }
 
         /// <summary>
         /// Сериализовать данные и сохранить
@@ -24,7 +30,7 @@ namespace com.abitech.rfid
         public void Serialize(string path)
         {
             var serializer = new XmlSerializer(typeof(Configuration));
-            File.Delete(path);
+            // File.Delete(path);
             TextWriter writer = new StreamWriter(path);
             serializer.Serialize(writer, this);
             writer.Close();
