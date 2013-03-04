@@ -42,41 +42,47 @@
 			// 
 			// repairsComboBox
 			// 
+			this.repairsComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.repairsComboBox.Location = new System.Drawing.Point(3, 4);
 			this.repairsComboBox.Name = "repairsComboBox";
-			this.repairsComboBox.Size = new System.Drawing.Size(234, 22);
+			this.repairsComboBox.Size = new System.Drawing.Size(234, 23);
 			this.repairsComboBox.TabIndex = 0;
 			// 
 			// tubesNumberTextBox
 			// 
-			this.tubesNumberTextBox.Location = new System.Drawing.Point(137, 56);
+			this.tubesNumberTextBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.tubesNumberTextBox.Location = new System.Drawing.Point(4, 104);
 			this.tubesNumberTextBox.Name = "tubesNumberTextBox";
-			this.tubesNumberTextBox.Size = new System.Drawing.Size(100, 21);
+			this.tubesNumberTextBox.Size = new System.Drawing.Size(127, 22);
 			this.tubesNumberTextBox.TabIndex = 2;
 			// 
 			// actTypeIdComboBox
 			// 
+			this.actTypeIdComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.actTypeIdComboBox.Location = new System.Drawing.Point(4, 56);
 			this.actTypeIdComboBox.Name = "actTypeIdComboBox";
-			this.actTypeIdComboBox.Size = new System.Drawing.Size(127, 22);
+			this.actTypeIdComboBox.Size = new System.Drawing.Size(127, 23);
 			this.actTypeIdComboBox.TabIndex = 1;
 			// 
 			// actTypeIdLabel
 			// 
+			this.actTypeIdLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.actTypeIdLabel.Location = new System.Drawing.Point(4, 33);
 			this.actTypeIdLabel.Name = "actTypeIdLabel";
-			this.actTypeIdLabel.Size = new System.Drawing.Size(100, 20);
+			this.actTypeIdLabel.Size = new System.Drawing.Size(127, 20);
 			this.actTypeIdLabel.Text = "Вид акта";
 			// 
 			// tubesNumberLabel
 			// 
-			this.tubesNumberLabel.Location = new System.Drawing.Point(137, 32);
+			this.tubesNumberLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.tubesNumberLabel.Location = new System.Drawing.Point(4, 81);
 			this.tubesNumberLabel.Name = "tubesNumberLabel";
-			this.tubesNumberLabel.Size = new System.Drawing.Size(100, 20);
+			this.tubesNumberLabel.Size = new System.Drawing.Size(127, 20);
 			this.tubesNumberLabel.Text = "Количество НКТ";
 			// 
 			// createActButton
 			// 
+			this.createActButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
 			this.createActButton.Location = new System.Drawing.Point(3, 245);
 			this.createActButton.Name = "createActButton";
 			this.createActButton.Size = new System.Drawing.Size(234, 20);

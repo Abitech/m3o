@@ -38,6 +38,7 @@
 			this.teamNumberLabel = new System.Windows.Forms.Label();
 			this.newRepairButton = new System.Windows.Forms.Button();
 			this.newActButton = new System.Windows.Forms.Button();
+			this.gpsLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// newOrderButton
@@ -118,12 +119,19 @@
 			this.newActButton.Text = "Новый акт";
 			this.newActButton.Click += new System.EventHandler(this.ActFormButton_Click);
 			// 
+			// gpsLabel
+			// 
+			this.gpsLabel.Location = new System.Drawing.Point(92, 187);
+			this.gpsLabel.Name = "gpsLabel";
+			this.gpsLabel.Size = new System.Drawing.Size(142, 81);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(240, 268);
+			this.Controls.Add(this.gpsLabel);
 			this.Controls.Add(this.newActButton);
 			this.Controls.Add(this.newRepairButton);
 			this.Controls.Add(this.teamNumberLabel);
@@ -151,5 +159,6 @@
         private System.Windows.Forms.Label teamNumberLabel;
         private System.Windows.Forms.Button newRepairButton;
 		private System.Windows.Forms.Button newActButton;
+		private System.Windows.Forms.Label gpsLabel;
     }
 }

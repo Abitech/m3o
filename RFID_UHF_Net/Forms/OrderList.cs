@@ -32,7 +32,7 @@ namespace RFID_UHF_Net.Forms
             cancelOrderButton.Text = strings["cancelOrder"];
             attachWaybillButton.Text = strings["attachWaybill"];
 
-            if (RfidReader.configuration.Role != Roles.repairForeman)
+            if (M3Client.configuration.Role != Roles.repairForeman)
             {
                 cancelOrderButton.Enabled = false;
             }
@@ -77,7 +77,7 @@ namespace RFID_UHF_Net.Forms
 
             if (result == DialogResult.OK)
             {
-				var response = RfidReader.web.CancelOrder(order.id);
+				var response = M3Client.web.CancelOrder(order.id);
 
 				if (response.error == null)
 				{
@@ -88,25 +88,6 @@ namespace RFID_UHF_Net.Forms
 					MessageBox.Show(strings["repeatAttempt"]);
 				}
             }
-        }
-
-        private void complete_Order_Click(object sender, EventArgs e)
-        {   /*
-            var row = ordersListView.FocusedItem;
-
-            if (row == null)
-            {
-                MessageBox.Show(strings["orderNotSelected"]);
-                return;
-            }
-
-            var order = (Order)row.Tag;
-
-            var result = MessageBox.Show(strings["doYouWantToCloseOrder"], "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-            if (result == DialogResult.OK)
-            {
-            }   */
         }
 
         private void attach_Waybill_Click(object sender, EventArgs e)

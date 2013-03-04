@@ -74,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\GPS.cs" />
+    <Compile Include="Client\GpsMessageWindow.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,11 +143,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Client\Configuration.cs" />
-    <Compile Include="Client\Reader.cs" />
-    <Compile Include="Client\Json.cs" />
+    <Compile Include="Client\M3Client.cs" />
     <Compile Include="Client\Messages.cs" />
     <Compile Include="Client\TryParse.cs" />
-    <Compile Include="Client\WebClient.cs" />
+    <Compile Include="Client\Web.cs" />
     <Compile Include="SoundClass.cs" />
     <Compile Include="Forms\Waybill.cs">
       <SubType>Form</SubType>
@@ -156,6 +157,7 @@
     <Compile Include="Client\Strings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="M3GpsParse.dll" />
     <Content Include="RFID2.ico" />
     <Content Include="Client\config.xml" />
   </ItemGroup>

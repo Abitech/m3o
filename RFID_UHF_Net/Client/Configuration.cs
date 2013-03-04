@@ -4,7 +4,7 @@ using System.IO;
 
 namespace com.abitech.rfid
 {
-    public enum Roles { repairForeman = 1, tubeMaster = 2 };
+    public enum Roles { repairForeman = 1, tubeMaster = 4 };
 
     /// <summary>
     /// Класс, хранящий данные о соединении с сервером

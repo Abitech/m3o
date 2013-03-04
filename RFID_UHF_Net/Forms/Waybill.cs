@@ -61,7 +61,7 @@ namespace RFID_UHF_Net.Forms
                 return;
             }
 
-            if (!RfidReader.GetSelectedTag(out tag))
+            if (!M3Client.GetSelectedTag(out tag))
             {
                 epcLabel.Text = strings["epcReadingStatusMissing"];
                 isEpcValid = false;
@@ -69,7 +69,7 @@ namespace RFID_UHF_Net.Forms
                 return;
             }
 
-            if (!RfidReader.ReadTag(tag, MemoryBankType.USER, 0, 6, out data))
+            if (!M3Client.ReadTag(tag, MemoryBankType.USER, 0, 6, out data))
             {
                 epcLabel.Text = strings["epcReadingStatusFailure"];
                 isEpcValid = false;
@@ -80,7 +80,7 @@ namespace RFID_UHF_Net.Forms
             invalidReadingCounter = 0;
 
             licencePlateNumber = System.Text.Encoding.UTF8.GetString(data, 0, 6);
-            epc = RfidReader.ByteArrayToHexString(tag.GetId());
+            epc = M3Client.ByteArrayToHexString(tag.GetId());
 
             epcLabel.Text = "\n" + licencePlateNumber + "\n";
 
@@ -91,7 +91,7 @@ namespace RFID_UHF_Net.Forms
         {
             (sender as Button).Enabled = false;
             var isValid = true;
-			notification.Text = "";
+			notification.Text = "<font face='Arial'>";
             notificationLabel.Text = "";
 
 			tubeStatusOld.BackColor = Color.White;
@@ -144,13 +144,17 @@ namespace RFID_UHF_Net.Forms
 
             if (isValid == false)
             {
-				notification.Text = "<ul>" + notification.Text + "</ul>";
+				notification.Text = "<ul>" + notification.Text + "</ul></font>";
 				notification.Visible = true;
 				(sender as Button).Enabled = true;
                 return;
             }
 
             #endregion
+
+			notificationLabel.Text = strings["messageSending"];
+			notificationLabel.ForeColor = Color.BlueViolet;
+			notificationLabel.Refresh();
 
             var waybill = new Waybill
             {
@@ -162,11 +166,11 @@ namespace RFID_UHF_Net.Forms
                 licencePlateNumber = this.licencePlateNumber
             };
 
-			var response = RfidReader.web.CreateWaybill(waybill);         
+			var response = M3Client.web.CreateWaybill(waybill);         
 
             if (response.error == null)
             {
-				notificationLabel.Text = strings["dispatchingStatusOK"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["dispatchingStatusOK"];
 				notificationLabel.ForeColor = Color.Green;
 			    isEpcValid = false;
                 tubeStatusOld.Checked = false;
@@ -181,7 +185,7 @@ namespace RFID_UHF_Net.Forms
             }
             else
             {
-				notificationLabel.Text = strings["repeatAttempt"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["repeatAttempt"];
 				notificationLabel.ForeColor = Color.Red;
             }
 

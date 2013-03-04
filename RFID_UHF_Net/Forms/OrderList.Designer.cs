@@ -104,7 +104,7 @@
 			// 
 			// attachWaybillButton
 			// 
-			this.attachWaybillButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+			this.attachWaybillButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
 			this.attachWaybillButton.Location = new System.Drawing.Point(3, 213);
 			this.attachWaybillButton.Name = "attachWaybillButton";
 			this.attachWaybillButton.Size = new System.Drawing.Size(234, 26);

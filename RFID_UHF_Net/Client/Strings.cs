@@ -4,9 +4,20 @@ using System.Collections.Generic;
 using System.Text;
 using com.abitech.rfid;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace RFID_UHF_Net
 {
+	/// <summary>
+	/// Интернационализация (i8n)
+	/// </summary>
+	/// <remarks>
+	/// Придумать способ сериализовать Dictionary в XML.
+	/// Не говоря уже о Dictionary<string, Dictionary<string, string>>
+	/// Можно было бы использовать Tuple<string, string, string>,
+	/// но в Compact Edition он отсутствует, да и появился только в .NET 4.0
+	/// </remarks>
     public class Strings
     {
         private Dictionary<string, Dictionary<string, string>> strings = new Dictionary<string, Dictionary<string, string>>();
@@ -22,7 +33,10 @@ namespace RFID_UHF_Net
 
         public void SetLanguage(string language)
         {
-            current = strings[language];
+			if (strings.ContainsKey(language))
+			{
+				current = strings[language];
+			}
         }
 
         public void Add(string language, string stringName, string @string)
@@ -63,10 +77,10 @@ namespace RFID_UHF_Net
             //Main
 
             strings.Add("ru", "newRepair", "Новый ремонт");
-            strings.Add("kz", "newRepair", "");
+			strings.Add("kz", "newRepair", "Жаңа жөндеу жұмысы");
 
 			strings.Add("ru", "newAct", "Новый акт");
-			strings.Add("kz", "newAct", "");
+			strings.Add("kz", "newAct", "Жаңа акт");
 
             strings.Add("ru", "newOrder", "Новая заявка");
             strings.Add("kz", "newOrder", "Жаңа тапсырыс");
@@ -83,16 +97,16 @@ namespace RFID_UHF_Net
             //
 
             strings.Add("ru", "messageSending", "Идет отправка, подождите...");
-            strings.Add("kz", "messageSending", "");
+			strings.Add("kz", "messageSending", "Күте тұрыңыз, жіберілу үстінде...");
 
             strings.Add("ru", "repeatAttempt", "Нет связи. Повторите операцию.");
-            strings.Add("kz", "repeatAttempt", "");
+			strings.Add("kz", "repeatAttempt", "Байланыс жок. Кайталаныз."); //Байланыс жоқ. Қайталаңыз.
 
             strings.Add("ru", "dispatchingStatusOK", "Доставлено.");
-            strings.Add("kz", "dispatchingStatusOK", "");
+			strings.Add("kz", "dispatchingStatusOK", "Жеткізілді.");
 
 			strings.Add("ru", "send", "Отправить");
-			strings.Add("kz", "send", "");
+			strings.Add("kz", "send", "Жеткізу");
 
             //NewRepair
 
@@ -103,7 +117,7 @@ namespace RFID_UHF_Net
             strings.Add("kz", "cjp", "ГУ/ПС");
 
 			strings.Add("ru", "oilwellNumberAbbr", "Cкв.");
-			strings.Add("kz", "oilwellNumberAbbr", "");
+			strings.Add("kz", "oilwellNumberAbbr", "Скв.");
 
             strings.Add("ru", "oilwellNumber", "Cкважина №");
             strings.Add("kz", "oilwellNumber", "Ұңғыма нөмірі");
@@ -138,7 +152,7 @@ namespace RFID_UHF_Net
             strings.Add("ru", "orderTypeTubesCleaning", "Уборка НКТ");
             strings.Add("kz", "orderTypeTubesCleaning", "НКК-ды жинау");
 
-            strings.Add("ru", "tubesNumber", "Кол-во, шт");
+            strings.Add("ru", "tubesNumber", "Кол-во НКТ, шт");
             strings.Add("kz", "tubesNumber", "НКҚ саны");
 
             strings.Add("ru", "districtApproach", "Подъезд");
@@ -165,7 +179,7 @@ namespace RFID_UHF_Net
 				//Валидация
 
             strings.Add("ru", "repairNotSelected", "Не выбран ремонт");
-            strings.Add("kz", "repairNotSelected", "");
+            strings.Add("kz", "repairNotSelected", "Жөндеу жұмысы өрісі таңдалмады");
 
             strings.Add("ru", "orderTypeNotSelected", "Не выбран тип заявки");
             strings.Add("kz", "orderTypeNotSelected", "Тапсырыс үлгісі таңданылмады");
@@ -290,19 +304,16 @@ namespace RFID_UHF_Net
 			// Акты
 
 			strings.Add("ru", "actTypes", "Вид акта");
-			strings.Add("kz", "actTypes", "");
+			strings.Add("kz", "actTypes", "Акттың түрі");
 
 			strings.Add("ru", "actTypeExtraction", "Извлечение НКТ");
-			strings.Add("kz", "actTypeExtraction", "");
+			strings.Add("kz", "actTypeExtraction", "НКҚ-ны шығару");
 
 			strings.Add("ru", "actTypeDescent", "Спуск НКТ");
-			strings.Add("kz", "actTypeDescent", "");
+			strings.Add("kz", "actTypeDescent", "НКҚ түсіру");
 
 			strings.Add("ru", "actTypeNotSelected", "Не выбран вид акта");
-			strings.Add("kz", "actTypeNotSelected", "");
-
-			
-
+			strings.Add("kz", "actTypeNotSelected", "Акттың түрі таңдалмады");
         }
     }
 }

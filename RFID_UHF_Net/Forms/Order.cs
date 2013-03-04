@@ -64,7 +64,7 @@ namespace RFID_UHF_Net.Forms
         {
             (sender as Button).Enabled = false;
             var isValid = true;
-            notification.Text = "";
+            notification.Text = "<font face='Arial'>";
             notificationLabel.Text = "";
 			notification.Visible = false;
 
@@ -115,18 +115,22 @@ namespace RFID_UHF_Net.Forms
 			if (approachIdComboBox.SelectedItem == null)
 			{
 				notification.Text += "<li>" + strings["districtApproachNotSelected"] + "</li>";
-				approachIdLabel.BackColor = Color.Red;
+				approachIdComboBox.BackColor = Color.Red;
                 isValid = false;			 
 			}
 
             if (isValid == false)
             {
-                notification.Text = "<ul>" + notification.Text + "</ul>";
+                notification.Text = "<ul>" + notification.Text + "</ul></font>";
                 notification.Visible = true;
 				(sender as Button).Enabled = true;
                 return;
             }
             #endregion
+
+			notificationLabel.Text = strings["messageSending"];
+			notificationLabel.ForeColor = Color.BlueViolet;
+			notificationLabel.Refresh();
 
             var order = new Order
             {
@@ -138,7 +142,7 @@ namespace RFID_UHF_Net.Forms
                 dateExpected = dateExpectedDateTimePicker.Value.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
-            var response = RfidReader.web.CreateOrder(order);
+            var response = M3Client.web.CreateOrder(order);
 
             if (response.error == null)
             {
@@ -155,9 +159,11 @@ namespace RFID_UHF_Net.Forms
             }
             else
             {
-                notificationLabel.Text = strings["repeatAttempt"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["repeatAttempt"];
                 notificationLabel.ForeColor = Color.Red;
             }
+
+			(sender as Button).Enabled = true;
         }
     }
 }

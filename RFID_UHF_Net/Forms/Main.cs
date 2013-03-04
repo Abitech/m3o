@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using com.abitech.rfid;
-using com.caen.RFIDLibrary;
+using Microsoft.WindowsCE.Forms;
 
 namespace RFID_UHF_Net.Forms
 {
@@ -13,33 +13,77 @@ namespace RFID_UHF_Net.Forms
 	{
 		private Strings strings;
 		private Configuration configuration;
-		private String path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + @"\config.xml";
+		private volatile bool shouldStop = true;
+		private Thread deviceActivityThread;
+
 
 		public MainForm()
 		{
-			RfidReader.configuration = Configuration.Deserialize(path);
-			configuration = RfidReader.configuration;
-
-			Resources.Init();
-			Resources.strings.SetLanguage(configuration.Language);
-			strings = Resources.strings;
-
-			RfidReader.web = new RfidWebClient(configuration);
-
-			try
-			{
-				RfidReader.reader = new CAENRFIDReader();
-				RfidReader.reader.Connect(CAENRFIDPort.CAENRFID_RS232, "MOC1");
-				System.Threading.Thread.Sleep(500);
-				RfidReader.source = RfidReader.reader.GetSources()[0];
-			}
-
-			catch (CAENRFIDException e)
+			if (M3Client.Init() == false)
 			{
 				return;
 			}
 
+			configuration = M3Client.configuration;
+			strings = Resources.strings;
+
 			InitializeComponent();
+
+			/* Получаем номер бригады/или должность и роль устройства */
+
+			var response = M3Client.web.GetDeviceDescription();
+
+			if (response.error == null)
+			{
+				configuration.Team = response.result.team;
+				configuration.Role = response.result.role;
+				configuration.Serialize(M3Client.configurationPath);
+			}
+
+			/* 
+			 * Сообщаем серверу каждые N секунд, что устройство в сети
+			 * и имеет такие-то координаты
+			 * 
+			 */
+
+			deviceActivityThread = new Thread(new ThreadStart(() =>
+			{
+				var time = DateTime.Now.AddSeconds(10);
+
+				while (shouldStop)
+				{
+					if (time.CompareTo(DateTime.Now) < 0)
+					{
+
+
+						var notification = DateTime.Now.ToString("HH:mm:ss") + "\n";
+
+						if (M3Client.gpsInfo.nPosFix > 0)
+						{
+							notification += "GPS in On\n";
+						}
+
+						notification += "Спутников: " + M3Client.gpsInfo.nSatInUse + "/" + M3Client.gpsInfo.nSatNum + "\nКоординаты: " + M3Client.gpsInfo.dLatitude + " " + M3Client.gpsInfo.dLongitude + "\n";
+
+						var onlineStatusResponse = M3Client.web.UpdateOnlineStatus(new DeviceActivity());
+
+						if (onlineStatusResponse.error == null)
+						{
+							notification += "Данные отправлены на сервер\n";
+						}
+
+						this.Invoke((System.Threading.ThreadStart)delegate() { gpsLabel.Text = notification; });
+
+						time = DateTime.Now.AddSeconds(10);
+					}
+				}
+
+				MessageBox.Show("Поток обновления статуса сети закрылся");
+			}));
+			deviceActivityThread.IsBackground = true;
+			deviceActivityThread.Start();
+
+			// M3Client.InitGps();
 
 			if (configuration.Language == "ru")
 			{
@@ -64,11 +108,12 @@ namespace RFID_UHF_Net.Forms
 				teamNumberLabel.Text = configuration.Location + " " + configuration.Team;
 				newRepairButton.Enabled = false;
 				newOrderButton.Enabled = false;
+				newActButton.Enabled = false;
 			}
 
 #if !DEBUG
-            testWaybillForm.Visible = false;
-            testWaybillForm.Enabled = false;
+			testWaybillForm.Visible = false;
+			testWaybillForm.Enabled = false;
 #endif
 		}
 
@@ -82,12 +127,26 @@ namespace RFID_UHF_Net.Forms
 			newActButton.Text = strings["newAct"];
 
 			configuration.Language = language;
-			configuration.Serialize(path);
+			configuration.Serialize(M3Client.configurationPath);
 		}
 
 		private void MainFormClosing(object sender, CancelEventArgs e)
 		{
-			RfidReader.reader.Disconnect();
+			shouldStop = false;
+			M3Client.reader.Disconnect();
+
+			if (deviceActivityThread.Join(10000) == false)
+			{
+				deviceActivityThread.Abort();
+			}
+
+			if (M3Client.gps != null && M3Client.gps.Close())
+			{
+				MessageBox.Show("Успешное закрытие GPS");
+			}
+
+			MessageBox.Show("Я, форма, почти закрыта.");
+			Application.Exit();
 		}
 
 		private void RepairForm_Click(object sender, EventArgs e)
@@ -99,7 +158,7 @@ namespace RFID_UHF_Net.Forms
 		private void OrderForm_Click(object sender, EventArgs e)
 		{
 			(sender as Button).Enabled = false;
-			var response = RfidReader.web.GetRepairs();
+			var response = M3Client.repairs;
 
 			if (response.error != null)
 			{
@@ -116,10 +175,10 @@ namespace RFID_UHF_Net.Forms
 		private void OrdersForm_Click(object sender, EventArgs e)
 		{
 			(sender as Button).Enabled = false;
-			var response = RfidReader.web.GetOrders();
+			var response = M3Client.web.GetOrders();
 
 			if (response.error != null)
-			{			
+			{
 				MessageBox.Show(strings["repeatAttempt"]);
 				(sender as Button).Enabled = true;
 				return;
@@ -133,7 +192,7 @@ namespace RFID_UHF_Net.Forms
 		private void ActFormButton_Click(object sender, EventArgs e)
 		{
 			(sender as Button).Enabled = false;
-			var response = RfidReader.web.GetRepairs();
+			var response = M3Client.repairs;
 
 			if (response.error != null)
 			{

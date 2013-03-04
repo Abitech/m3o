@@ -69,6 +69,21 @@ namespace com.abitech.rfid
             this.Configuration = configuration;
 		}
 
+		public RpcResponse<List<Repair>> GetRepairs()
+		{
+			return SendPostData<List<Repair>>("json/dev/get/repairs", "{}");
+		}
+
+		public RpcResponse<List<OrderListRecord>> GetOrders()
+		{
+			return SendPostData<List<OrderListRecord>>("json/dev/get/orders", "{}");
+		}
+
+		public RpcResponse<DeviceDescription> GetDeviceDescription()
+		{
+			return SendPostData<DeviceDescription>("json/dev/maint/descr", "{}");
+		}
+
 		#region CreateSomething
 		public RpcResponse<string> CreateRepair(Repair repair)
         {
@@ -90,21 +105,16 @@ namespace com.abitech.rfid
 			return SendPostData<string>("json/dev/create/act/", Converter.Serialize(act));
 		}
 
+		public RpcResponse<string> UpdateOnlineStatus(DeviceActivity deviceCheck)
+		{
+			return SendPostData<string>("json/dev/maint/online/", Converter.Serialize(deviceCheck));		
+		}
+
 		public RpcResponse<string> CancelOrder(int id)
 		{
 			return SendPostData<string>("json/dev/cancel/order/", Converter.Serialize(new Envelope { id = id }));
 		}
 		#endregion
-
-		public RpcResponse<List<Repair>> GetRepairs()
-        {
-            return SendPostData<List<Repair>>("json/dev/get/repairs", "{}");
-        }
-
-		public RpcResponse<List<OrderListRecord>> GetOrders()
-		{
-			return SendPostData<List<OrderListRecord>>("json/dev/get/orders", "{}");
-		}
 
         /// <summary>
         /// Отправка и обработка данных. Обёртка над UploadString.

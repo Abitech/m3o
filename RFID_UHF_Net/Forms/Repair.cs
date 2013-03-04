@@ -41,7 +41,8 @@ namespace RFID_UHF_Net.Forms
         {
             (sender as Button).Enabled = false;
             var isValid = true;
-            notification.Text = "";
+
+			notification.Text = "<font face='Arial'>";
             notificationLabel.Text = "";
 			notification.Visible = false;
 
@@ -49,6 +50,7 @@ namespace RFID_UHF_Net.Forms
             cjpTextBox.BackColor = Color.White;
             oilwellNumberTextBox.BackColor = Color.White;
             tubeDiameterIdComboBox.BackColor = Color.White;
+			
 
             #region Валидация полей
             if (ogpwTextBox.Text.Length == 0)
@@ -105,15 +107,16 @@ namespace RFID_UHF_Net.Forms
 
             if (isValid == false)
             {
-                notification.Text = "<ul>" + notification.Text + "</ul>";
+                notification.Text = "<ul>" + notification.Text + "</ul></font>";
                 notification.Visible = true;
                 createRepairButton.Enabled = true;
                 return;
             }
             #endregion
 
-            notificationLabel.Text = strings["messageSending"];
-            notificationLabel.ForeColor = Color.BlueViolet;
+			notificationLabel.Text = strings["messageSending"];
+			notificationLabel.ForeColor = Color.BlueViolet;
+			notificationLabel.Refresh();
 
             var repair = new Repair
                 {
@@ -123,11 +126,13 @@ namespace RFID_UHF_Net.Forms
                     tubeDiameterId = ((ComboBoxItem)tubeDiameterIdComboBox.SelectedItem).id
                 };
 
-            var response = RfidReader.web.CreateRepair(repair);
+            var response = M3Client.web.CreateRepair(repair);
 
             if (response.error == null)
             {
-                notificationLabel.Text = strings["dispatchingStatusOK"];
+				M3Client.repairs = null;
+
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["dispatchingStatusOK"];
                 notificationLabel.ForeColor = Color.Green;
 
                 #if !DEBUG          
@@ -139,7 +144,7 @@ namespace RFID_UHF_Net.Forms
             }
             else
             {
-                notificationLabel.Text = strings["repeatAttempt"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["repeatAttempt"];
                 notificationLabel.ForeColor = Color.Red;
              }
             

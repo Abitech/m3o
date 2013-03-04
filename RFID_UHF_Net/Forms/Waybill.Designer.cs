@@ -45,7 +45,7 @@
 			// 
 			// sendWaybillButton
 			// 
-			this.sendWaybillButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+			this.sendWaybillButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
 			this.sendWaybillButton.Location = new System.Drawing.Point(3, 245);
 			this.sendWaybillButton.Name = "sendWaybillButton";
 			this.sendWaybillButton.Size = new System.Drawing.Size(234, 20);
@@ -55,7 +55,7 @@
 			// 
 			// readTagButton
 			// 
-			this.readTagButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+			this.readTagButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
 			this.readTagButton.Location = new System.Drawing.Point(3, 46);
 			this.readTagButton.Name = "readTagButton";
 			this.readTagButton.Size = new System.Drawing.Size(234, 18);
@@ -75,9 +75,10 @@
 			// 
 			// tubesNumberTextBox
 			// 
+			this.tubesNumberTextBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.tubesNumberTextBox.Location = new System.Drawing.Point(112, 137);
 			this.tubesNumberTextBox.Name = "tubesNumberTextBox";
-			this.tubesNumberTextBox.Size = new System.Drawing.Size(100, 21);
+			this.tubesNumberTextBox.Size = new System.Drawing.Size(100, 22);
 			this.tubesNumberTextBox.TabIndex = 2;
 			// 
 			// tubeStatusNew
@@ -91,6 +92,7 @@
 			// 
 			// tubeStatusOld
 			// 
+			this.tubeStatusOld.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.tubeStatusOld.Location = new System.Drawing.Point(6, 117);
 			this.tubeStatusOld.Name = "tubeStatusOld";
 			this.tubeStatusOld.Size = new System.Drawing.Size(100, 20);
@@ -132,9 +134,10 @@
 			// 
 			// waybillNumberTextBox
 			// 
+			this.waybillNumberTextBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.waybillNumberTextBox.Location = new System.Drawing.Point(111, 90);
 			this.waybillNumberTextBox.Name = "waybillNumberTextBox";
-			this.waybillNumberTextBox.Size = new System.Drawing.Size(100, 21);
+			this.waybillNumberTextBox.Size = new System.Drawing.Size(100, 22);
 			this.waybillNumberTextBox.TabIndex = 1;
 			// 
 			// notification

@@ -48,7 +48,7 @@ namespace RFID_UHF_Net.Forms
 		{
 			(sender as Button).Enabled = false;
 			var isValid = true;
-			notification.Text = "";
+			notification.Text = "<font face='Arial'>";
 			notificationLabel.Text = "";
 
 			actTypeIdComboBox.BackColor = Color.White;
@@ -86,12 +86,16 @@ namespace RFID_UHF_Net.Forms
 
 			if (isValid == false)
 			{
-				notification.Text = "<ul>" + notification.Text + "</ul>";
+				notification.Text = "<ul>" + notification.Text + "</ul></font>";
 				notification.Visible = true;
 				(sender as Button).Enabled = true;
 				return;
 			}
 			#endregion
+
+			notificationLabel.Text = strings["messageSending"];
+			notificationLabel.ForeColor = Color.BlueViolet;
+			notificationLabel.Refresh();
 
 			var act = new Act
 			{
@@ -100,11 +104,11 @@ namespace RFID_UHF_Net.Forms
 				tubesNumber = Int32.Parse(tubesNumberTextBox.Text)
 			};
 
-			var response = RfidReader.web.CreateAct(act);
+			var response = M3Client.web.CreateAct(act);
 
 			if (response.error == null)
 			{
-				notificationLabel.Text = strings["dispatchingStatusOK"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["dispatchingStatusOK"];
 				notificationLabel.ForeColor = Color.Green;
 
 #if !DEBUG
@@ -115,7 +119,7 @@ namespace RFID_UHF_Net.Forms
 			}
 			else
 			{
-				notificationLabel.Text = strings["repeatAttempt"];
+				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["repeatAttempt"];
 				notificationLabel.ForeColor = Color.Red;
 			}
 

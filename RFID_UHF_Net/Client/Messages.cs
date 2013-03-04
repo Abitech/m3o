@@ -28,7 +28,6 @@ namespace com.abitech.rfid
 					return tubeDiameters[id];
 				}
 			}
-
 	}
 
     public class ComboBoxItem
@@ -45,6 +44,18 @@ namespace com.abitech.rfid
 	public class Envelope
 	{
 		public int id;
+	}
+
+	public class DeviceDescription
+	{
+		public string team;
+		public Roles role;
+	}
+
+	public class DeviceActivity
+	{
+		public int locationX;
+		public int locationY;
 	}
 
     public class Repair

@@ -50,7 +50,7 @@ namespace RFID_UHF_Net.Forms
 			// 
 			// createNewOrderButton
 			// 
-			this.createNewOrderButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+			this.createNewOrderButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
 			this.createNewOrderButton.Location = new System.Drawing.Point(3, 245);
 			this.createNewOrderButton.Name = "createNewOrderButton";
 			this.createNewOrderButton.Size = new System.Drawing.Size(234, 20);
@@ -60,9 +60,10 @@ namespace RFID_UHF_Net.Forms
 			// 
 			// tubesNumberTextBox
 			// 
+			this.tubesNumberTextBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.tubesNumberTextBox.Location = new System.Drawing.Point(3, 101);
 			this.tubesNumberTextBox.Name = "tubesNumberTextBox";
-			this.tubesNumberTextBox.Size = new System.Drawing.Size(100, 21);
+			this.tubesNumberTextBox.Size = new System.Drawing.Size(100, 22);
 			this.tubesNumberTextBox.TabIndex = 4;
 			// 
 			// tubesNumberLabel
@@ -84,9 +85,10 @@ namespace RFID_UHF_Net.Forms
 			// orderTypeIdComboBox
 			// 
 			this.orderTypeIdComboBox.BackColor = System.Drawing.Color.White;
+			this.orderTypeIdComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.orderTypeIdComboBox.Location = new System.Drawing.Point(3, 53);
 			this.orderTypeIdComboBox.Name = "orderTypeIdComboBox";
-			this.orderTypeIdComboBox.Size = new System.Drawing.Size(100, 22);
+			this.orderTypeIdComboBox.Size = new System.Drawing.Size(100, 23);
 			this.orderTypeIdComboBox.TabIndex = 2;
 			// 
 			// approachIdLabel
@@ -99,9 +101,10 @@ namespace RFID_UHF_Net.Forms
 			// 
 			// orderReasonIdComboBox
 			// 
+			this.orderReasonIdComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.orderReasonIdComboBox.Location = new System.Drawing.Point(109, 53);
 			this.orderReasonIdComboBox.Name = "orderReasonIdComboBox";
-			this.orderReasonIdComboBox.Size = new System.Drawing.Size(128, 22);
+			this.orderReasonIdComboBox.Size = new System.Drawing.Size(128, 23);
 			this.orderReasonIdComboBox.TabIndex = 3;
 			// 
 			// orderReasonIdLabel
@@ -114,17 +117,20 @@ namespace RFID_UHF_Net.Forms
 			// 
 			// approachIdComboBox
 			// 
+			this.approachIdComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.approachIdComboBox.Location = new System.Drawing.Point(3, 148);
 			this.approachIdComboBox.Name = "approachIdComboBox";
-			this.approachIdComboBox.Size = new System.Drawing.Size(234, 22);
+			this.approachIdComboBox.Size = new System.Drawing.Size(234, 23);
 			this.approachIdComboBox.TabIndex = 6;
 			// 
 			// dateExpectedLabel
 			// 
-			this.dateExpectedLabel.Location = new System.Drawing.Point(111, 78);
+			this.dateExpectedLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.dateExpectedLabel.Location = new System.Drawing.Point(87, 78);
 			this.dateExpectedLabel.Name = "dateExpectedLabel";
-			this.dateExpectedLabel.Size = new System.Drawing.Size(126, 20);
-			this.dateExpectedLabel.Text = "Плановое время";
+			this.dateExpectedLabel.Size = new System.Drawing.Size(150, 20);
+			this.dateExpectedLabel.Text = "Жоспарланған уақыт";
+			this.dateExpectedLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// notification
 			// 
@@ -133,23 +139,25 @@ namespace RFID_UHF_Net.Forms
 			// dateExpectedDateTimePicker
 			// 
 			this.dateExpectedDateTimePicker.CustomFormat = "yyyy";
-			this.dateExpectedDateTimePicker.Location = new System.Drawing.Point(109, 100);
+			this.dateExpectedDateTimePicker.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.dateExpectedDateTimePicker.Location = new System.Drawing.Point(109, 101);
 			this.dateExpectedDateTimePicker.Name = "dateExpectedDateTimePicker";
-			this.dateExpectedDateTimePicker.Size = new System.Drawing.Size(128, 22);
+			this.dateExpectedDateTimePicker.Size = new System.Drawing.Size(128, 23);
 			this.dateExpectedDateTimePicker.TabIndex = 5;
 			// 
 			// repairsComboBox
 			// 
+			this.repairsComboBox.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
 			this.repairsComboBox.Location = new System.Drawing.Point(3, 3);
 			this.repairsComboBox.Name = "repairsComboBox";
-			this.repairsComboBox.Size = new System.Drawing.Size(234, 22);
+			this.repairsComboBox.Size = new System.Drawing.Size(234, 23);
 			this.repairsComboBox.TabIndex = 1;
 			// 
 			// notificationLabel
 			// 
-			this.notificationLabel.Location = new System.Drawing.Point(3, 177);
+			this.notificationLabel.Location = new System.Drawing.Point(3, 220);
 			this.notificationLabel.Name = "notificationLabel";
-			this.notificationLabel.Size = new System.Drawing.Size(234, 65);
+			this.notificationLabel.Size = new System.Drawing.Size(234, 22);
 			this.notificationLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// OrderForm
