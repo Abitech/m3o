@@ -161,7 +161,7 @@ namespace com.abitech.rfid
 					#if DEBUG
                     MessageBox.Show(responseString);
 					#endif
-
+					
 					return Converter.Deserialize<RpcResponse<T>>(responseString);
                 }
             }

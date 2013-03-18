@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using com.caen.RFIDLibrary;
-using RFID_UHF_Net;
 using System.IO;
 using System.Reflection;
-using Microsoft.WindowsCE.Forms;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
+using com.caen.RFIDLibrary;
+using Microsoft.WindowsCE.Forms;
+using RFID_UHF_Net;
 
 
 namespace com.abitech.rfid
@@ -38,8 +37,7 @@ namespace com.abitech.rfid
 
 		public static bool Init()
 		{
-			configurationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + @"\config.xml";
-			configuration = Configuration.Deserialize(configurationPath);
+			configuration = new Configuration();
 
 			Resources.Init();
 			Resources.strings.SetLanguage(configuration.Language);

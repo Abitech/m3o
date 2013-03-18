@@ -28,6 +28,9 @@ namespace RFID_UHF_Net.Forms
 			strings = Resources.strings;
 
 			InitializeComponent();
+#if !DEBUG
+			gpsLabel.Visible = false;
+#endif
 
 			/* Получаем номер бригады/или должность и роль устройства */
 
@@ -37,7 +40,7 @@ namespace RFID_UHF_Net.Forms
 			{
 				configuration.Team = response.result.team;
 				configuration.Role = response.result.role;
-				configuration.Serialize(M3Client.configurationPath);
+				configuration.Save();
 			}
 
 			/* 
@@ -54,8 +57,6 @@ namespace RFID_UHF_Net.Forms
 				{
 					if (time.CompareTo(DateTime.Now) < 0)
 					{
-
-
 						var notification = DateTime.Now.ToString("HH:mm:ss") + "\n";
 
 						if (M3Client.gpsInfo.nPosFix > 0)
@@ -77,11 +78,9 @@ namespace RFID_UHF_Net.Forms
 						time = DateTime.Now.AddSeconds(10);
 					}
 				}
-
-				MessageBox.Show("Поток обновления статуса сети закрылся");
 			}));
 			deviceActivityThread.IsBackground = true;
-			deviceActivityThread.Start();
+			//deviceActivityThread.Start();
 
 			// M3Client.InitGps();
 
@@ -127,7 +126,7 @@ namespace RFID_UHF_Net.Forms
 			newActButton.Text = strings["newAct"];
 
 			configuration.Language = language;
-			configuration.Serialize(M3Client.configurationPath);
+			configuration.Save();
 		}
 
 		private void MainFormClosing(object sender, CancelEventArgs e)
@@ -135,7 +134,7 @@ namespace RFID_UHF_Net.Forms
 			shouldStop = false;
 			M3Client.reader.Disconnect();
 
-			if (deviceActivityThread.Join(10000) == false)
+			if (deviceActivityThread.Join(5000) == false)
 			{
 				deviceActivityThread.Abort();
 			}
@@ -145,7 +144,6 @@ namespace RFID_UHF_Net.Forms
 				MessageBox.Show("Успешное закрытие GPS");
 			}
 
-			MessageBox.Show("Я, форма, почти закрыта.");
 			Application.Exit();
 		}
 
@@ -166,6 +164,8 @@ namespace RFID_UHF_Net.Forms
 				(sender as Button).Enabled = true;
 				return;
 			}
+
+			MessageBox.Show("Работает. OrderForm_Click");
 
 			(sender as Button).Enabled = true;
 			var form = new OrderForm(response.result);

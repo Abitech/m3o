@@ -159,7 +159,6 @@
   <ItemGroup>
     <Content Include="M3GpsParse.dll" />
     <Content Include="RFID2.ico" />
-    <Content Include="Client\config.xml" />
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
@@ -179,6 +178,7 @@
   -->
   <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)\Client\config.xml" "$(ProjectDir)$(OutDir)config.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
