@@ -26,6 +26,7 @@ namespace com.abitech.rfid
     /// </summary>
     public enum ResponseCode
     {
+		NetworkIsNotAvailable = -2,
         CorruptedResponse = -1,
         Ok = 0,
         InternalServerError = 1,
@@ -37,7 +38,8 @@ namespace com.abitech.rfid
 		AccessDenied = 7,
 		IncorrectId = 8,
 		OwnerMismatch = 9,
-		ActionForbidden = 10
+		ActionForbidden = 10,
+		wrongMethod = 11
     };
 
     public class RpcResponse<T>
@@ -45,6 +47,13 @@ namespace com.abitech.rfid
         public T result;
         public string error;
     }
+
+	enum ConnectionStatus
+	{
+		Offline,
+		OnlineTargetNotFound,
+		OnlineTargetFound,
+	}
 
     /// <summary>
     /// Класс, отвечающий за посылку данных считывания на сервер
@@ -55,33 +64,46 @@ namespace com.abitech.rfid
         /// Определяет настройки подключения: сервер, ключ устройства.
         /// Смотри файл config.xml.
         /// </summary>
-        readonly Configuration Configuration;
+        readonly ClientConfiguration Configuration;
 
         readonly SHA1CryptoServiceProvider Sha1 = new SHA1CryptoServiceProvider();
         readonly UTF8Encoding UniEncoding = new UTF8Encoding();
+		//Отличие второй версии протокола в том, что она корректно обрабатывает json, имеющий "result":"null"
+		//В первой версии для обхода этой проблемы на серверной стороне надо было отправлять ответ-пустышку с нулевыми значениями
+		const int protocolVersion = 2;
 
         /// <summary>
         ///  Инициализация вебклиента
         /// </summary>
         /// <param name="conf"></param>
-        public RfidWebClient(Configuration configuration)
+        public RfidWebClient(ClientConfiguration configuration)
         {
             this.Configuration = configuration;
 		}
 
 		public RpcResponse<List<Repair>> GetRepairs()
 		{
-			return SendPostData<List<Repair>>("json/dev/get/repairs", "{}");
+			return SendPostData<List<Repair>>("json/dev/get/repairs/", "{}");
 		}
 
 		public RpcResponse<List<OrderListRecord>> GetOrders()
 		{
-			return SendPostData<List<OrderListRecord>>("json/dev/get/orders", "{}");
+			return SendPostData<List<OrderListRecord>>("json/dev/get/orders/", "{}");
 		}
 
 		public RpcResponse<DeviceDescription> GetDeviceDescription()
 		{
-			return SendPostData<DeviceDescription>("json/dev/maint/descr", "{}");
+			return SendPostData<DeviceDescription>("json/dev/maint/get/fulldescr/", "{}");
+		}
+
+		public RpcResponse<StringEnvelope> GetNewDeviceKey(DeviceKeyRequest deviceKeyRequest)
+		{
+			return SendPostData<StringEnvelope>("json/dev/maint/get/newdevicekey/", Converter.Serialize(deviceKeyRequest));
+		}
+
+		public RpcResponse<List<ShortDeviceDescription>> GetDeviceList(DeviceKeyRequest deviceKeyRequest)
+		{
+			return SendPostData<List<ShortDeviceDescription>>("/json/dev/maint/get/devicelist/", Converter.Serialize(deviceKeyRequest));
 		}
 
 		#region CreateSomething
@@ -125,10 +147,6 @@ namespace com.abitech.rfid
         {
             try
             {
-                #if DEBUG
-                MessageBox.Show(jsonString);
-                #endif
-
                 var jsonHashString = String.Empty;
                 var inHashBytes = UniEncoding.GetBytes(jsonString);
                 var outHashBytes = Sha1.ComputeHash(inHashBytes);
@@ -139,7 +157,11 @@ namespace com.abitech.rfid
                     jsonHashString += b.ToString("x2");
                 }
 
-                var byteArray = UniEncoding.GetBytes("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString);
+				#if DEBUG
+				//MessageBox.Show("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString);
+				#endif 
+                
+				var byteArray = UniEncoding.GetBytes("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString + "&protocol=" + );
                 var webRequest = (HttpWebRequest)WebRequest.Create(Configuration.Server + url);
 
                 // webRequest.Proxy = null;  //На Шindows Mobile работает некорректно
@@ -159,10 +181,18 @@ namespace com.abitech.rfid
 					var responseString = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
 
 					#if DEBUG
-                    MessageBox.Show(responseString);
+                    //MessageBox.Show(responseString);
 					#endif
-					
-					return Converter.Deserialize<RpcResponse<T>>(responseString);
+					var tempResponse = RfidJson.Deserialize(responseString);
+
+					if (tempResponse.result != null)
+					{
+						return Converter.Deserialize<RpcResponse<T>>(responseString);
+					}
+					else
+					{
+						return new RpcResponse<T> { error = tempResponse.error, result = default(T) };
+					}
                 }
             }
 
@@ -171,5 +201,46 @@ namespace com.abitech.rfid
                  return new RpcResponse<T> { error = ResponseCode.InternalServerError.ToString() };
             }
         }
+
+		ConnectionStatus GetConnectionStatus(String url)
+		{
+			try
+			{
+				//
+				// If the device is set to loopback, then no connection exists.
+				//
+				String hostName = System.Net.Dns.GetHostName();
+				System.Net.IPHostEntry host = System.Net.Dns.GetHostByName(hostName);
+				String ipAddress = host.AddressList.ToString();
+
+				if (ipAddress == System.Net.IPAddress.Parse("127.0.0.1").ToString())
+				{
+					return ConnectionStatus.Offline;
+				}
+
+				//
+				// Now we know we're online. Use a web request and check
+				// for a response to see if the target can be found or not.
+				// N.B. There are blocking calls here.
+				//
+				System.Net.WebResponse webResponse = null;
+				try
+				{
+					System.Net.WebRequest webRequest = System.Net.WebRequest.Create(url);
+					webRequest.Timeout = 10000;
+					webResponse = webRequest.GetResponse();
+
+					return ConnectionStatus.OnlineTargetFound;
+				}
+				catch (Exception)
+				{
+					return ConnectionStatus.OnlineTargetNotFound;
+				}
+			}
+			catch (Exception)
+			{
+				return ConnectionStatus.Offline;
+			}
+		}
 	}
 }

@@ -46,10 +46,29 @@ namespace com.abitech.rfid
 		public int id;
 	}
 
+	public class StringEnvelope
+	{
+		public string deviceKey;
+	}
+
+	public class DeviceKeyRequest
+	{
+		public string masterKey;
+		public int id;
+	}
+
 	public class DeviceDescription
 	{
+		public string location;
 		public string team;
 		public Roles role;
+	}
+
+	public class ShortDeviceDescription
+	{
+		public string id;
+		public string location;
+		public string team;
 	}
 
 	public class DeviceActivity

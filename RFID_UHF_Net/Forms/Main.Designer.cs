@@ -38,13 +38,30 @@
 			this.teamNumberLabel = new System.Windows.Forms.Label();
 			this.newRepairButton = new System.Windows.Forms.Button();
 			this.newActButton = new System.Windows.Forms.Button();
-			this.gpsLabel = new System.Windows.Forms.Label();
+			this.notificationLabel = new System.Windows.Forms.Label();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.titleLabel = new System.Windows.Forms.Label();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.eraseConfigurationButton = new System.Windows.Forms.Button();
+			this.getDeviceListButton = new System.Windows.Forms.Button();
+			this.deviceListComboBox = new System.Windows.Forms.ComboBox();
+			this.requestDeviceDescriptionButton = new System.Windows.Forms.Button();
+			this.requestNewDeviceKeyResultLabel = new System.Windows.Forms.Label();
+			this.requestNewDeviceKeyResultButton = new System.Windows.Forms.Button();
+			this.maintenanceLabel = new System.Windows.Forms.Label();
+			this.readMasterCardResultButton = new System.Windows.Forms.Button();
+			this.serverLocationUrlTextBox = new System.Windows.Forms.TextBox();
+			this.getDeviceDescriptionTimer = new System.Windows.Forms.Timer();
+			this.tabControl1.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// newOrderButton
 			// 
 			this.newOrderButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-			this.newOrderButton.Location = new System.Drawing.Point(3, 66);
+			this.newOrderButton.Location = new System.Drawing.Point(3, 81);
 			this.newOrderButton.Name = "newOrderButton";
 			this.newOrderButton.Size = new System.Drawing.Size(231, 22);
 			this.newOrderButton.TabIndex = 2;
@@ -54,7 +71,7 @@
 			// orderListButton
 			// 
 			this.orderListButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-			this.orderListButton.Location = new System.Drawing.Point(3, 120);
+			this.orderListButton.Location = new System.Drawing.Point(3, 135);
 			this.orderListButton.Name = "orderListButton";
 			this.orderListButton.Size = new System.Drawing.Size(231, 20);
 			this.orderListButton.TabIndex = 4;
@@ -64,9 +81,9 @@
 			// languageSelectorKzRadioButton
 			// 
 			this.languageSelectorKzRadioButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular);
-			this.languageSelectorKzRadioButton.Location = new System.Drawing.Point(3, 213);
+			this.languageSelectorKzRadioButton.Location = new System.Drawing.Point(9, 188);
 			this.languageSelectorKzRadioButton.Name = "languageSelectorKzRadioButton";
-			this.languageSelectorKzRadioButton.Size = new System.Drawing.Size(100, 20);
+			this.languageSelectorKzRadioButton.Size = new System.Drawing.Size(77, 20);
 			this.languageSelectorKzRadioButton.TabIndex = 9;
 			this.languageSelectorKzRadioButton.Text = "Қазақ";
 			this.languageSelectorKzRadioButton.Click += new System.EventHandler(this.LanguageSelectorKz_CheckedChanged);
@@ -74,9 +91,9 @@
 			// languageSelectorRuRadioButton
 			// 
 			this.languageSelectorRuRadioButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular);
-			this.languageSelectorRuRadioButton.Location = new System.Drawing.Point(3, 239);
+			this.languageSelectorRuRadioButton.Location = new System.Drawing.Point(9, 214);
 			this.languageSelectorRuRadioButton.Name = "languageSelectorRuRadioButton";
-			this.languageSelectorRuRadioButton.Size = new System.Drawing.Size(100, 20);
+			this.languageSelectorRuRadioButton.Size = new System.Drawing.Size(77, 20);
 			this.languageSelectorRuRadioButton.TabIndex = 10;
 			this.languageSelectorRuRadioButton.Text = "Русский";
 			this.languageSelectorRuRadioButton.Click += new System.EventHandler(this.LanguageSelectorRu_CheckedChanged);
@@ -84,7 +101,7 @@
 			// testWaybillForm
 			// 
 			this.testWaybillForm.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-			this.testWaybillForm.Location = new System.Drawing.Point(3, 147);
+			this.testWaybillForm.Location = new System.Drawing.Point(2, 161);
 			this.testWaybillForm.Name = "testWaybillForm";
 			this.testWaybillForm.Size = new System.Drawing.Size(231, 20);
 			this.testWaybillForm.TabIndex = 5;
@@ -93,16 +110,14 @@
 			// 
 			// teamNumberLabel
 			// 
-			this.teamNumberLabel.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
 			this.teamNumberLabel.Location = new System.Drawing.Point(0, 0);
 			this.teamNumberLabel.Name = "teamNumberLabel";
-			this.teamNumberLabel.Size = new System.Drawing.Size(240, 35);
-			this.teamNumberLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.teamNumberLabel.Size = new System.Drawing.Size(100, 20);
 			// 
 			// newRepairButton
 			// 
 			this.newRepairButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-			this.newRepairButton.Location = new System.Drawing.Point(3, 38);
+			this.newRepairButton.Location = new System.Drawing.Point(3, 53);
 			this.newRepairButton.Name = "newRepairButton";
 			this.newRepairButton.Size = new System.Drawing.Size(231, 22);
 			this.newRepairButton.TabIndex = 1;
@@ -112,18 +127,146 @@
 			// newActButton
 			// 
 			this.newActButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-			this.newActButton.Location = new System.Drawing.Point(3, 94);
+			this.newActButton.Location = new System.Drawing.Point(2, 109);
 			this.newActButton.Name = "newActButton";
 			this.newActButton.Size = new System.Drawing.Size(231, 20);
 			this.newActButton.TabIndex = 3;
 			this.newActButton.Text = "Новый акт";
 			this.newActButton.Click += new System.EventHandler(this.ActFormButton_Click);
 			// 
-			// gpsLabel
+			// notificationLabel
 			// 
-			this.gpsLabel.Location = new System.Drawing.Point(92, 187);
-			this.gpsLabel.Name = "gpsLabel";
-			this.gpsLabel.Size = new System.Drawing.Size(142, 81);
+			this.notificationLabel.Location = new System.Drawing.Point(92, 188);
+			this.notificationLabel.Name = "notificationLabel";
+			this.notificationLabel.Size = new System.Drawing.Size(145, 54);
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(240, 265);
+			this.tabControl1.TabIndex = 11;
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.titleLabel);
+			this.tabPage1.Controls.Add(this.newRepairButton);
+			this.tabPage1.Controls.Add(this.notificationLabel);
+			this.tabPage1.Controls.Add(this.newOrderButton);
+			this.tabPage1.Controls.Add(this.newActButton);
+			this.tabPage1.Controls.Add(this.orderListButton);
+			this.tabPage1.Controls.Add(this.languageSelectorKzRadioButton);
+			this.tabPage1.Controls.Add(this.languageSelectorRuRadioButton);
+			this.tabPage1.Controls.Add(this.testWaybillForm);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Size = new System.Drawing.Size(240, 242);
+			// 
+			// titleLabel
+			// 
+			this.titleLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+			this.titleLabel.Location = new System.Drawing.Point(4, 4);
+			this.titleLabel.Name = "titleLabel";
+			this.titleLabel.Size = new System.Drawing.Size(229, 40);
+			this.titleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.eraseConfigurationButton);
+			this.tabPage2.Controls.Add(this.getDeviceListButton);
+			this.tabPage2.Controls.Add(this.deviceListComboBox);
+			this.tabPage2.Controls.Add(this.requestDeviceDescriptionButton);
+			this.tabPage2.Controls.Add(this.requestNewDeviceKeyResultLabel);
+			this.tabPage2.Controls.Add(this.requestNewDeviceKeyResultButton);
+			this.tabPage2.Controls.Add(this.maintenanceLabel);
+			this.tabPage2.Controls.Add(this.readMasterCardResultButton);
+			this.tabPage2.Controls.Add(this.serverLocationUrlTextBox);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(232, 239);
+			this.tabPage2.Text = "Обслуживание";
+			// 
+			// eraseConfigurationButton
+			// 
+			this.eraseConfigurationButton.Location = new System.Drawing.Point(4, 215);
+			this.eraseConfigurationButton.Name = "eraseConfigurationButton";
+			this.eraseConfigurationButton.Size = new System.Drawing.Size(231, 20);
+			this.eraseConfigurationButton.TabIndex = 16;
+			this.eraseConfigurationButton.Text = "Обнулить конфигурацию";
+			this.eraseConfigurationButton.Click += new System.EventHandler(this.eraseConfigurationButton_Click);
+			// 
+			// getDeviceListButton
+			// 
+			this.getDeviceListButton.Enabled = false;
+			this.getDeviceListButton.Location = new System.Drawing.Point(4, 136);
+			this.getDeviceListButton.Name = "getDeviceListButton";
+			this.getDeviceListButton.Size = new System.Drawing.Size(231, 20);
+			this.getDeviceListButton.TabIndex = 13;
+			this.getDeviceListButton.Text = "Получить список бригад";
+			this.getDeviceListButton.Click += new System.EventHandler(this.getDeviceListButton_Click);
+			// 
+			// deviceListComboBox
+			// 
+			this.deviceListComboBox.Location = new System.Drawing.Point(4, 108);
+			this.deviceListComboBox.Name = "deviceListComboBox";
+			this.deviceListComboBox.Size = new System.Drawing.Size(231, 22);
+			this.deviceListComboBox.TabIndex = 12;
+			// 
+			// requestDeviceDescriptionButton
+			// 
+			this.requestDeviceDescriptionButton.Location = new System.Drawing.Point(4, 188);
+			this.requestDeviceDescriptionButton.Name = "requestDeviceDescriptionButton";
+			this.requestDeviceDescriptionButton.Size = new System.Drawing.Size(231, 20);
+			this.requestDeviceDescriptionButton.TabIndex = 9;
+			this.requestDeviceDescriptionButton.Text = "Обновить номер бригады";
+			this.requestDeviceDescriptionButton.Click += new System.EventHandler(this.requestDeviceDescriptionButton_Click);
+			// 
+			// requestNewDeviceKeyResultLabel
+			// 
+			this.requestNewDeviceKeyResultLabel.Location = new System.Drawing.Point(3, 135);
+			this.requestNewDeviceKeyResultLabel.Name = "requestNewDeviceKeyResultLabel";
+			this.requestNewDeviceKeyResultLabel.Size = new System.Drawing.Size(231, 20);
+			// 
+			// requestNewDeviceKeyResultButton
+			// 
+			this.requestNewDeviceKeyResultButton.Enabled = false;
+			this.requestNewDeviceKeyResultButton.Location = new System.Drawing.Point(4, 162);
+			this.requestNewDeviceKeyResultButton.Name = "requestNewDeviceKeyResultButton";
+			this.requestNewDeviceKeyResultButton.Size = new System.Drawing.Size(231, 20);
+			this.requestNewDeviceKeyResultButton.TabIndex = 7;
+			this.requestNewDeviceKeyResultButton.Text = "Запросить новый ключ";
+			this.requestNewDeviceKeyResultButton.Click += new System.EventHandler(this.requestNewDeviceKeyResultButton_Click);
+			// 
+			// maintenanceLabel
+			// 
+			this.maintenanceLabel.Location = new System.Drawing.Point(4, 4);
+			this.maintenanceLabel.Name = "maintenanceLabel";
+			this.maintenanceLabel.Size = new System.Drawing.Size(233, 48);
+			// 
+			// readMasterCardResultButton
+			// 
+			this.readMasterCardResultButton.Location = new System.Drawing.Point(4, 55);
+			this.readMasterCardResultButton.Name = "readMasterCardResultButton";
+			this.readMasterCardResultButton.Size = new System.Drawing.Size(231, 20);
+			this.readMasterCardResultButton.TabIndex = 5;
+			this.readMasterCardResultButton.Text = "Считать мастер-карту";
+			this.readMasterCardResultButton.Click += new System.EventHandler(this.ReadMasterCardResultButton_Click);
+			// 
+			// serverLocationUrlTextBox
+			// 
+			this.serverLocationUrlTextBox.Location = new System.Drawing.Point(4, 81);
+			this.serverLocationUrlTextBox.Name = "serverLocationUrlTextBox";
+			this.serverLocationUrlTextBox.Size = new System.Drawing.Size(231, 21);
+			this.serverLocationUrlTextBox.TabIndex = 4;
+			// 
+			// getDeviceDescriptionTimer
+			// 
+			this.getDeviceDescriptionTimer.Interval = 500;
+			this.getDeviceDescriptionTimer.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// MainForm
 			// 
@@ -131,20 +274,16 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(240, 268);
-			this.Controls.Add(this.gpsLabel);
-			this.Controls.Add(this.newActButton);
-			this.Controls.Add(this.newRepairButton);
+			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.teamNumberLabel);
-			this.Controls.Add(this.testWaybillForm);
-			this.Controls.Add(this.languageSelectorRuRadioButton);
-			this.Controls.Add(this.languageSelectorKzRadioButton);
-			this.Controls.Add(this.orderListButton);
-			this.Controls.Add(this.newOrderButton);
 			this.Menu = this.mainMenu1;
 			this.MinimizeBox = false;
 			this.Name = "MainForm";
 			this.Text = "АСКОУ НКТ";
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.MainFormClosing);
+			this.tabControl1.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -159,6 +298,20 @@
         private System.Windows.Forms.Label teamNumberLabel;
         private System.Windows.Forms.Button newRepairButton;
 		private System.Windows.Forms.Button newActButton;
-		private System.Windows.Forms.Label gpsLabel;
+		private System.Windows.Forms.Label notificationLabel;
+		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.Label titleLabel;
+		private System.Windows.Forms.TextBox serverLocationUrlTextBox;
+		private System.Windows.Forms.Button readMasterCardResultButton;
+		private System.Windows.Forms.Label maintenanceLabel;
+		private System.Windows.Forms.Label requestNewDeviceKeyResultLabel;
+		private System.Windows.Forms.Button requestNewDeviceKeyResultButton;
+		private System.Windows.Forms.Button requestDeviceDescriptionButton;
+		private System.Windows.Forms.ComboBox deviceListComboBox;
+		private System.Windows.Forms.Button getDeviceListButton;
+		private System.Windows.Forms.Button eraseConfigurationButton;
+		private System.Windows.Forms.Timer getDeviceDescriptionTimer;
     }
 }

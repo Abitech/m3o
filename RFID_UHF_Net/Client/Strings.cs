@@ -64,7 +64,7 @@ namespace RFID_UHF_Net
         }
     }
 
-    public static class Resources
+    public static class i8n
     {
         static public Strings strings;
 
@@ -73,6 +73,7 @@ namespace RFID_UHF_Net
             strings = new Strings("kz", "ru");
 
             strings.SetLanguage("ru");
+
 
             //Main
 
@@ -94,10 +95,51 @@ namespace RFID_UHF_Net
             strings.Add("ru", "team", "Бригада №");
             strings.Add("kz", "team", "Бригада №");
 
-            //
+			//
+
+			strings.Add("ru", "technicalAssistanceNeeded", "Требуется техническая поддержка.");
+			strings.Add("kz", "technicalAssistanceNeeded", "Требуется техническая поддержка.");
+
+			strings.Add("ru", "clientConfigurationMissing", "Настройки соединения отсутствуют.");
+			strings.Add("kz", "clientConfigurationMissing", "Настройки соединения отсутствуют.");
+
+			strings.Add("ru", "readerNotReady", "Требуется перезагрузка считывателя.");
+			strings.Add("kz", "readerNotReady", "Требуется перезагрузка считывателя.");
+
+			strings.Add("ru", "waitForConnection", "Установка соединения. Ждите...");
+			strings.Add("kz", "waitForConnection", "Установка соединения Ждите...");
+
+			strings.Add("ru", "connectionFailure", "Связь не установлена.");
+			strings.Add("kz", "connectionFailure", "Связь не установлена.");
+
+			strings.Add("ru", "masterCardReadingStatusSuccess", "Мастер-карта считана.");
+			strings.Add("kz", "masterCardReadingStatusSuccess", "Мастер-карта считана.");
+
+			strings.Add("ru", "masterCardReadingStatusFailure", "Не удалось считать мастер-карту. Повторите.");
+			strings.Add("kz", "masterCardReadingStatusFailure", "Не удалось считать мастер-карту. Повторите.");
+
+			strings.Add("ru", "serverLocationUrlMissing", "Введите адрес сервера.");
+			strings.Add("kz", "serverLocationUrlMissing", "Введите адрес сервера.");
+
+			strings.Add("ru", "getDeviceListFailure", "Не удалось получить список устройств. Повторите.");
+			strings.Add("kz", "getDeviceListFailure", "Не удалось получить список устройств. Повторите.");
+
+			strings.Add("ru", "getNewDeviceKeyFailure", "Не удалось получить новый ключ устройства. Повторите.");
+			strings.Add("kz", "getNewDeviceKeyFailure", "Не удалось получить новый ключ устройства. Повторите.");
+
+			strings.Add("ru", "getNewDeviceKeySuccess", "Новый ключ устройства получен и сохранён.");
+			strings.Add("kz", "getNewDeviceKeySuccess", "Новый ключ устройства получен и сохранён.");
+
+			strings.Add("ru", "getDeviceDescriptionSuccess", "Данные о бригаде получены.");
+			strings.Add("kz", "getDeviceDescriptionSuccess", "Данные о бригаде получены.");			
+            
+			//
 
             strings.Add("ru", "messageSending", "Идет отправка, подождите...");
 			strings.Add("kz", "messageSending", "Күте тұрыңыз, жіберілу үстінде...");
+
+			strings.Add("ru", "noOrdersAvailable", "Список заявок пуст.");
+			strings.Add("kz", "noOrdersAvailable", "Список заявок пуст.");
 
             strings.Add("ru", "repeatAttempt", "Нет связи. Повторите операцию.");
 			strings.Add("kz", "repeatAttempt", "Байланыс жок. Кайталаныз."); //Байланыс жоқ. Қайталаңыз.
@@ -108,7 +150,10 @@ namespace RFID_UHF_Net
 			strings.Add("ru", "send", "Отправить");
 			strings.Add("kz", "send", "Жеткізу");
 
+			//
             //NewRepair
+			strings.Add("ru", "ogpd", "НДГУ №");
+			strings.Add("kz", "ogpd", "НГДУ №");
 
             strings.Add("ru", "ogwp", "ЦДНГ");
             strings.Add("kz", "ogwp", "ЦДНГ");

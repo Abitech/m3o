@@ -20,7 +20,7 @@ namespace RFID_UHF_Net.Forms
         {
             InitializeComponent();
 
-			strings = Resources.strings;
+			strings = i8n.strings;
 			this.Text = "";
 
 			SetOrders(orders);
@@ -100,7 +100,7 @@ namespace RFID_UHF_Net.Forms
                 return;
             }
 
-            var waybillForm = new WaybillForm((OrderListRecord)row.Tag);
+            var waybillForm = new WaybillForm((OrderListRecord)row.Tag, this);
             waybillForm.Show();
         }        
     }       

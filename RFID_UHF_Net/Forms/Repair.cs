@@ -19,7 +19,7 @@ namespace RFID_UHF_Net.Forms
         {
             InitializeComponent();
 
-            strings = Resources.strings;
+            strings = i8n.strings;
 
             this.Text = "";
 

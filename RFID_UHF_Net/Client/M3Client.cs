@@ -12,6 +12,12 @@ using RFID_UHF_Net;
 
 namespace com.abitech.rfid
 {
+	enum M3ClientInitializationStatus
+	{
+		Ok = 0,
+		ClientConfigurationMissing = 1,
+		ReaderNotReady = 2
+	}
 	enum MemoryBankType
 	{
 		Other = -1,
@@ -23,24 +29,23 @@ namespace com.abitech.rfid
 
     class M3Client
     {
-		public static string configurationPath { get; private set; }
 		public static RfidWebClient web { get; private set; }
-		public static Configuration configuration { get; private set; }
+		public static ClientConfiguration configuration { get; private set; }
 		public static CAENRFIDReader reader {  get; private set; }
-		public static CAENRFIDLogicalSource source { get; private set; }
-		
 		static RpcResponse<List<Repair>> _repairs;
+		static CAENRFIDLogicalSource source;
 
 		public static GpsParse gps;
 		public static GpsParse.GPS_PARSE_INFO gpsInfo = new GpsParse.GPS_PARSE_INFO();
 		public static double dUTCTime;
 
-		public static bool Init()
+		public static M3ClientInitializationStatus Init()
 		{
-			configuration = new Configuration();
-
-			Resources.Init();
-			Resources.strings.SetLanguage(configuration.Language);
+			//Берём из реестра данные о соединении
+			configuration = new ClientConfiguration();
+			//Интернационализаци
+			i8n.Init();
+			i8n.strings.SetLanguage(configuration.Language);
 
 			web = new RfidWebClient(configuration);
 
@@ -53,9 +58,15 @@ namespace com.abitech.rfid
 			}
 			catch (CAENRFIDException e)
 			{
-				return false;
+				return M3ClientInitializationStatus.ReaderNotReady;
 			}
-			return true;
+
+			if (configuration.Server == String.Empty || configuration.DeviceKey == String.Empty)
+			{
+				return M3ClientInitializationStatus.ClientConfigurationMissing;
+			}
+
+			return M3ClientInitializationStatus.Ok;
 		}
 		
 		public static void InitGps()

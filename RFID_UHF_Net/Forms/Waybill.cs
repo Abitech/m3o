@@ -22,11 +22,16 @@ namespace RFID_UHF_Net.Forms
 
         bool isEpcValid = false;
 
-        Strings strings = Resources.strings;
+        Strings strings = i8n.strings;
 
-		public WaybillForm(OrderListRecord orderRecord)
+		public WaybillForm(OrderListRecord orderRecord, OrdersForm orderListForm)
         {
             InitializeComponent();
+
+			if (orderListForm != null)
+			{
+				orderListForm.Close();
+			}
 
 			this.orderRecord = orderRecord;
             
