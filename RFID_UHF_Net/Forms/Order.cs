@@ -15,7 +15,7 @@ namespace RFID_UHF_Net.Forms
         public OrderForm(List<Repair> repairs)
         {
             InitializeComponent();
-
+													   
             strings = i8n.strings;
             this.Text = "";
 

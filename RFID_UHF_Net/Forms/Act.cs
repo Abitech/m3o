@@ -13,16 +13,13 @@ namespace RFID_UHF_Net.Forms
 	public partial class ActForm : Form
 	{
 		private Strings strings;
-		private List<Repair> repairs;
 
-		public ActForm(List<Repair> repairs)
+		public ActForm()
 		{
 			InitializeComponent();
 
 			this.strings = i8n.strings;
 			this.Text = "";
-
-			this.repairs = repairs;
 
 			actTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 1, value = strings["actTypeExtraction"] });
 			actTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 2, value = strings["actTypeDescent"] });
@@ -36,6 +33,14 @@ namespace RFID_UHF_Net.Forms
 		private void SetRepairs()
 		{
 			var tubeDiameter = new TubeDiameter();
+			var repairs = M3Client.repairs.result;
+			repairsComboBox.Items.Clear();
+
+			if (repairs == null)
+			{
+				MessageBox.Show(i8n.strings["noRepairsAvailable"]);
+				return;
+			}
 
 			foreach (var repair in repairs)
 			{
@@ -110,12 +115,14 @@ namespace RFID_UHF_Net.Forms
 			{
 				notificationLabel.Text = DateTime.Now.ToString("HH:mm") + " " + strings["dispatchingStatusOK"];
 				notificationLabel.ForeColor = Color.Green;
+				M3Client.repairs = null;
+				SetRepairs();
 
-#if !DEBUG
+				#if !DEBUG
                 repairsComboBox.SelectedItem = null;
                 actTypeIdComboBox.SelectedItem = null;
 				tubesNumberTextBox.Text = "";
-#endif
+				#endif
 			}
 			else
 			{
@@ -124,9 +131,6 @@ namespace RFID_UHF_Net.Forms
 			}
 
 			(sender as Button).Enabled = true;
-
-
 		}
-
 	}
 }

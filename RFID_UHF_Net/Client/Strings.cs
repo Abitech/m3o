@@ -44,7 +44,7 @@ namespace RFID_UHF_Net
             var current = strings[language];
             if (current.ContainsKey(stringName))
             {
-                MessageBox.Show("Ключ " + stringName + "уже внесен в список");
+                MessageBox.Show("Ключ " + stringName + " уже внесен в список");
                 return;
             }
             current.Add(stringName, @string);
@@ -56,7 +56,7 @@ namespace RFID_UHF_Net
             {
                 if (current.ContainsKey(stringName) == false)
                 {
-                    MessageBox.Show("Ключ " + stringName + "не найден");
+                    MessageBox.Show("Ключ " + stringName + " не найден");
                     return String.Empty;
                 }
                 return current[stringName];
@@ -98,51 +98,52 @@ namespace RFID_UHF_Net
 			//
 
 			strings.Add("ru", "technicalAssistanceNeeded", "Требуется техническая поддержка.");
-			strings.Add("kz", "technicalAssistanceNeeded", "Требуется техническая поддержка.");
+			strings.Add("kz", "technicalAssistanceNeeded", "Техникалық қолдау сұрайды.");
 
 			strings.Add("ru", "clientConfigurationMissing", "Настройки соединения отсутствуют.");
-			strings.Add("kz", "clientConfigurationMissing", "Настройки соединения отсутствуют.");
+			strings.Add("kz", "clientConfigurationMissing", "Құралымның күйттесі жок.");
 
 			strings.Add("ru", "readerNotReady", "Требуется перезагрузка считывателя.");
 			strings.Add("kz", "readerNotReady", "Требуется перезагрузка считывателя.");
 
 			strings.Add("ru", "waitForConnection", "Установка соединения. Ждите...");
-			strings.Add("kz", "waitForConnection", "Установка соединения Ждите...");
+			strings.Add("kz", "waitForConnection", "Құралымның қондырғысы. Күтіңіз...");
 
 			strings.Add("ru", "connectionFailure", "Связь не установлена.");
-			strings.Add("kz", "connectionFailure", "Связь не установлена.");
+			strings.Add("kz", "connectionFailure", "Байланыс жок.");
 
 			strings.Add("ru", "masterCardReadingStatusSuccess", "Мастер-карта считана.");
-			strings.Add("kz", "masterCardReadingStatusSuccess", "Мастер-карта считана.");
+			strings.Add("kz", "masterCardReadingStatusSuccess", "Шебер-карта оқылды.");
 
 			strings.Add("ru", "masterCardReadingStatusFailure", "Не удалось считать мастер-карту. Повторите.");
-			strings.Add("kz", "masterCardReadingStatusFailure", "Не удалось считать мастер-карту. Повторите.");
+			strings.Add("kz", "masterCardReadingStatusFailure", "Шебер-карта оқылғанжоқ. Қайталаңыз.");
 
 			strings.Add("ru", "serverLocationUrlMissing", "Введите адрес сервера.");
-			strings.Add("kz", "serverLocationUrlMissing", "Введите адрес сервера.");
+			strings.Add("kz", "serverLocationUrlMissing", "Сервердің мекенжайын жазыңыз.");
 
 			strings.Add("ru", "getDeviceListFailure", "Не удалось получить список устройств. Повторите.");
-			strings.Add("kz", "getDeviceListFailure", "Не удалось получить список устройств. Повторите.");
+			strings.Add("kz", "getDeviceListFailure", " Құрылымның тізбесі алынғанжок. Қайталаңыз.");
 
 			strings.Add("ru", "getNewDeviceKeyFailure", "Не удалось получить новый ключ устройства. Повторите.");
-			strings.Add("kz", "getNewDeviceKeyFailure", "Не удалось получить новый ключ устройства. Повторите.");
+			strings.Add("kz", "getNewDeviceKeyFailure", "Құрылымның жаңа кілті қабылданғанжоқ. Қайталаңыз.");
 
 			strings.Add("ru", "getNewDeviceKeySuccess", "Новый ключ устройства получен и сохранён.");
-			strings.Add("kz", "getNewDeviceKeySuccess", "Новый ключ устройства получен и сохранён.");
+			strings.Add("kz", "getNewDeviceKeySuccess", "Құрылымның жаңа кілті қабылданды және сақталды.");
 
 			strings.Add("ru", "getDeviceDescriptionSuccess", "Данные о бригаде получены.");
-			strings.Add("kz", "getDeviceDescriptionSuccess", "Данные о бригаде получены.");			
-            
-			//
+			strings.Add("kz", "getDeviceDescriptionSuccess", "Бригаданың мәліметтері қабылданды.");
 
-            strings.Add("ru", "messageSending", "Идет отправка, подождите...");
+			strings.Add("ru", "noOrdersAvailable", "Текущих заявок нет. Все заявки были закрыты.");
+			strings.Add("kz", "noOrdersAvailable", "Кезекті өтінімдер жоқ. Өтінімдердің барлығы жабылған.");
+
+			strings.Add("ru", "noRepairsAvailable", "Текущих ремонтов (нарядов) нет. Все ремонты были закрыты.");
+			strings.Add("kz", "noRepairsAvailable", "Кезекті жөндеу жоқ. Жөндеудін барлығы жабылған..");
+
+			strings.Add("ru", "messageSending", "Идет отправка, подождите...");
 			strings.Add("kz", "messageSending", "Күте тұрыңыз, жіберілу үстінде...");
 
-			strings.Add("ru", "noOrdersAvailable", "Список заявок пуст.");
-			strings.Add("kz", "noOrdersAvailable", "Список заявок пуст.");
-
-            strings.Add("ru", "repeatAttempt", "Нет связи. Повторите операцию.");
-			strings.Add("kz", "repeatAttempt", "Байланыс жок. Кайталаныз."); //Байланыс жоқ. Қайталаңыз.
+			strings.Add("ru", "repeatAttempt", "Возникла ошибка. Возможно, нет связи. Повторите операцию.");
+			strings.Add("kz", "repeatAttempt", "Қате кетті. Мүмкін, байланыс жоқ. Операцияны қайталаңыз.");
 
             strings.Add("ru", "dispatchingStatusOK", "Доставлено.");
 			strings.Add("kz", "dispatchingStatusOK", "Жеткізілді.");

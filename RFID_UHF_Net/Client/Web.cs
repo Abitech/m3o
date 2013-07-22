@@ -143,46 +143,46 @@ namespace com.abitech.rfid
         /// </summary>
         /// <param name="url">Метод</param>
         /// <param name="data">Параметры</param>
-        RpcResponse<T> SendPostData<T>(string url, string jsonString)
-        {
-            try
-            {
-                var jsonHashString = String.Empty;
-                var inHashBytes = UniEncoding.GetBytes(jsonString);
-                var outHashBytes = Sha1.ComputeHash(inHashBytes);
+		RpcResponse<T> SendPostData<T>(string url, string jsonString)
+		{
+			try
+			{
+				var jsonHashString = String.Empty;
+				var inHashBytes = UniEncoding.GetBytes(jsonString);
+				var outHashBytes = Sha1.ComputeHash(inHashBytes);
 
-                //фактически jsonString преобразуется дважды
-                foreach (var b in outHashBytes)
-                {
-                    jsonHashString += b.ToString("x2");
-                }
+				//фактически jsonString преобразуется дважды
+				foreach (var b in outHashBytes)
+				{
+					jsonHashString += b.ToString("x2");
+				}
 
-				#if DEBUG
+#if DEBUG
 				//MessageBox.Show("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString);
-				#endif 
-                
-				var byteArray = UniEncoding.GetBytes("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString + "&protocol=" + );
-                var webRequest = (HttpWebRequest)WebRequest.Create(Configuration.Server + url);
+#endif
 
-                // webRequest.Proxy = null;  //На Шindows Mobile работает некорректно
-                webRequest.Method = "POST";
-                webRequest.AllowAutoRedirect = false;
-                webRequest.ContentType = "application/x-www-form-urlencoded";
-                webRequest.ContentLength = byteArray.Length;
-                webRequest.Timeout = 5000;
+				var byteArray = UniEncoding.GetBytes("json=" + jsonString + "&key=" + Configuration.DeviceKey + "&checksum=" + jsonHashString + "&protocol=" + protocolVersion.ToString());
+				var webRequest = (HttpWebRequest)WebRequest.Create(Configuration.Server + url);
 
-                var webpageStream = webRequest.GetRequestStream();
-                webpageStream.Write(byteArray, 0, byteArray.Length);
-                webpageStream.Close();
+				// webRequest.Proxy = null;  //На Шindows Mobile работает некорректно
+				webRequest.Method = "POST";
+				webRequest.AllowAutoRedirect = false;
+				webRequest.ContentType = "application/x-www-form-urlencoded";
+				webRequest.ContentLength = byteArray.Length;
+				webRequest.Timeout = 5000;
 
-                //обработка
-                using (var webResponse = webRequest.GetResponse())
-                {
+				var webpageStream = webRequest.GetRequestStream();
+				webpageStream.Write(byteArray, 0, byteArray.Length);
+				webpageStream.Close();
+
+				//обработка
+				using (var webResponse = webRequest.GetResponse())
+				{
 					var responseString = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
 
-					#if DEBUG
-                    //MessageBox.Show(responseString);
-					#endif
+#if DEBUG
+
+#endif
 					var tempResponse = RfidJson.Deserialize(responseString);
 
 					if (tempResponse.result != null)
@@ -193,53 +193,12 @@ namespace com.abitech.rfid
 					{
 						return new RpcResponse<T> { error = tempResponse.error, result = default(T) };
 					}
-                }
-            }
-
-            catch (Exception e)
-            {
-                 return new RpcResponse<T> { error = ResponseCode.InternalServerError.ToString() };
-            }
-        }
-
-		ConnectionStatus GetConnectionStatus(String url)
-		{
-			try
-			{
-				//
-				// If the device is set to loopback, then no connection exists.
-				//
-				String hostName = System.Net.Dns.GetHostName();
-				System.Net.IPHostEntry host = System.Net.Dns.GetHostByName(hostName);
-				String ipAddress = host.AddressList.ToString();
-
-				if (ipAddress == System.Net.IPAddress.Parse("127.0.0.1").ToString())
-				{
-					return ConnectionStatus.Offline;
-				}
-
-				//
-				// Now we know we're online. Use a web request and check
-				// for a response to see if the target can be found or not.
-				// N.B. There are blocking calls here.
-				//
-				System.Net.WebResponse webResponse = null;
-				try
-				{
-					System.Net.WebRequest webRequest = System.Net.WebRequest.Create(url);
-					webRequest.Timeout = 10000;
-					webResponse = webRequest.GetResponse();
-
-					return ConnectionStatus.OnlineTargetFound;
-				}
-				catch (Exception)
-				{
-					return ConnectionStatus.OnlineTargetNotFound;
 				}
 			}
-			catch (Exception)
+
+			catch (Exception e)
 			{
-				return ConnectionStatus.Offline;
+				return new RpcResponse<T> { error = ResponseCode.InternalServerError.ToString() };
 			}
 		}
 	}

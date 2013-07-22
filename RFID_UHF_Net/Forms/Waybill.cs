@@ -24,7 +24,7 @@ namespace RFID_UHF_Net.Forms
 
         Strings strings = i8n.strings;
 
-		public WaybillForm(OrderListRecord orderRecord, OrdersForm orderListForm)
+		public WaybillForm(OrderListRecord orderRecord, OrderListForm orderListForm)
         {
             InitializeComponent();
 
@@ -184,9 +184,7 @@ namespace RFID_UHF_Net.Forms
                 tubesNumberTextBox.Text = "";
                 epcLabel.Text = "";
                 readTagButton.Enabled = true;
-
                 invalidReadingCounter = 0;
-
             }
             else
             {

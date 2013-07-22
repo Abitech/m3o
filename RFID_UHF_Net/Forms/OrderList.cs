@@ -11,12 +11,11 @@ using com.caen.RFIDLibrary;
 
 namespace RFID_UHF_Net.Forms
 {
-    public partial class OrdersForm : Form
+    public partial class OrderListForm : Form
     {
         private Strings strings;
-		private List<OrderListRecord> orders;
 
-        public OrdersForm(List<OrderListRecord> orders)
+		public OrderListForm(List<OrderListRecord> orders)
         {
             InitializeComponent();
 
@@ -42,8 +41,6 @@ namespace RFID_UHF_Net.Forms
 		{
 			ordersListView.Items.Clear();
 
-			this.orders = orders;
-			
 			var tubeDiameter = new TubeDiameter();
 
 			foreach (var order in orders)

@@ -51,6 +51,14 @@ namespace com.abitech.rfid
 			}
 		}
 
+		public void Update(DeviceDescription description)
+		{
+			Location = description.location;
+			Team = description.team;
+			Role = description.role;
+			Save();	
+		}
+
 		public void Save()
 		{
 			Registry.SetValue(root, "Server", Server, RegistryValueKind.String);

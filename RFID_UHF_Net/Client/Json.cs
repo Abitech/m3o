@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using CodeBetter.Json;
+using System.Windows.Forms;
 
 namespace com.abitech.rfid
 {
@@ -11,16 +12,22 @@ namespace com.abitech.rfid
         public static RpcResponse<string> Deserialize(string s)
         {
             var response = new RpcResponse<string>();
-            var match = new Regex("{\"result\":\"?(.*?)\"?,\"error\":(.*?)}").Match(s);
+			var match = new Regex("{\"result\":\"?(.*?)\"?,\"error\":\"?(.*?)\"?}").Match(s);
             if (match.Success)
             {
-                if (match.Groups[1].Value == "null")
-                    response.result = null;
-                else
-                    response.result = match.Groups[1].Value;
+				if (match.Groups[1].Value == "null")
+				{
+					response.result = null;
+				}
+				else
+				{
+					response.result = match.Groups[1].Value;
+				}
 
 				if (match.Groups[2].Value == "null")
+				{
 					response.error = null;
+				}
 				else
 				{
 					try

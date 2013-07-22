@@ -1,6 +1,6 @@
 ﻿namespace RFID_UHF_Net.Forms
 {
-	partial class OrdersForm
+	partial class OrderListForm
     {
         /// <summary>
         /// Required designer variable.

@@ -84,7 +84,6 @@ namespace com.abitech.rfid
 			}
 		}
 
-#pragma unmanaged
 		public static void GetGpsInfoDelegate(ref GpsParse.GPS_PARSE_INFO info)
 		{
 			try
@@ -96,7 +95,6 @@ namespace com.abitech.rfid
 				Console.WriteLine(e.Message);
 			}
 		}
-#pragma managed
 
 		public static void OnReceivingGpsData(Message msg)
 		{

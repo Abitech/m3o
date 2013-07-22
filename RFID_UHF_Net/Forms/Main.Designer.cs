@@ -30,6 +30,7 @@
         private void InitializeComponent()
         {
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
+			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.newOrderButton = new System.Windows.Forms.Button();
 			this.orderListButton = new System.Windows.Forms.Button();
 			this.languageSelectorKzRadioButton = new System.Windows.Forms.RadioButton();
@@ -43,7 +44,6 @@
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.titleLabel = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.eraseConfigurationButton = new System.Windows.Forms.Button();
 			this.getDeviceListButton = new System.Windows.Forms.Button();
 			this.deviceListComboBox = new System.Windows.Forms.ComboBox();
 			this.requestDeviceDescriptionButton = new System.Windows.Forms.Button();
@@ -57,6 +57,14 @@
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// mainMenu1
+			// 
+			this.mainMenu1.MenuItems.Add(this.menuItem1);
+			// 
+			// menuItem1
+			// 
+			this.menuItem1.Text = "Версия 1.5";
 			// 
 			// newOrderButton
 			// 
@@ -176,7 +184,6 @@
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.Add(this.eraseConfigurationButton);
 			this.tabPage2.Controls.Add(this.getDeviceListButton);
 			this.tabPage2.Controls.Add(this.deviceListComboBox);
 			this.tabPage2.Controls.Add(this.requestDeviceDescriptionButton);
@@ -187,17 +194,8 @@
 			this.tabPage2.Controls.Add(this.serverLocationUrlTextBox);
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(232, 239);
+			this.tabPage2.Size = new System.Drawing.Size(240, 242);
 			this.tabPage2.Text = "Обслуживание";
-			// 
-			// eraseConfigurationButton
-			// 
-			this.eraseConfigurationButton.Location = new System.Drawing.Point(4, 215);
-			this.eraseConfigurationButton.Name = "eraseConfigurationButton";
-			this.eraseConfigurationButton.Size = new System.Drawing.Size(231, 20);
-			this.eraseConfigurationButton.TabIndex = 16;
-			this.eraseConfigurationButton.Text = "Обнулить конфигурацию";
-			this.eraseConfigurationButton.Click += new System.EventHandler(this.eraseConfigurationButton_Click);
 			// 
 			// getDeviceListButton
 			// 
@@ -266,7 +264,6 @@
 			// getDeviceDescriptionTimer
 			// 
 			this.getDeviceDescriptionTimer.Interval = 500;
-			this.getDeviceDescriptionTimer.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// MainForm
 			// 
@@ -311,7 +308,7 @@
 		private System.Windows.Forms.Button requestDeviceDescriptionButton;
 		private System.Windows.Forms.ComboBox deviceListComboBox;
 		private System.Windows.Forms.Button getDeviceListButton;
-		private System.Windows.Forms.Button eraseConfigurationButton;
 		private System.Windows.Forms.Timer getDeviceDescriptionTimer;
+		private System.Windows.Forms.MenuItem menuItem1;
     }
 }
