@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.abitech.rfid;
 
-namespace RFID_UHF_Net.Forms
+namespace com.abitech.rfid.Forms
 {
 	public partial class ActForm : Form
 	{
@@ -24,8 +24,15 @@ namespace RFID_UHF_Net.Forms
 			actTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 1, value = strings["actTypeExtraction"] });
 			actTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 2, value = strings["actTypeDescent"] });
 
-			tubesNumberLabel.Text = strings["tubesNumber"];
 			createActButton.Text = strings["send"];
+
+			tubesNumberNewLabel.Text = strings["tubesNumberNew"];
+			tubesNumberOldLabel.Text = strings["tubesNumberOld"];
+			rodNumberNewLabel.Text = strings["rodNumberNew"];
+			rodNumberOldLabel.Text = strings["rodNumberOld"];
+			pumpTextLabel.Text = strings["pump"];
+			pumpNewRadioButton.Text = strings["newSing"];
+			pumpOldRadioButton.Text = strings["oldSing"];
 
 			SetRepairs();
 		}
@@ -57,7 +64,7 @@ namespace RFID_UHF_Net.Forms
 			notificationLabel.Text = "";
 
 			actTypeIdComboBox.BackColor = Color.White;
-			tubesNumberTextBox.BackColor = Color.White;
+			tubesNumberNewTextBox.BackColor = Color.White;
 			repairsComboBox.BackColor = Color.White;
 
 			#region Валидация полей
@@ -75,17 +82,68 @@ namespace RFID_UHF_Net.Forms
 				actTypeIdComboBox.BackColor = Color.Red;
 				isValid = false;
 			}
-			//Кол-во НКТ
-			if (tubesNumberTextBox.Text.Length == 0)
+			//Кол-во новых НКТ
+			if (tubesNumberNewTextBox.Text.Length == 0)
 			{
 				notification.Text += "<li>" + strings["tubesNumberMissing"] + "</li>";
-				tubesNumberTextBox.BackColor = Color.Red;
+				tubesNumberNewTextBox.BackColor = Color.Red;
 				isValid = false;
 			}
-			else if (Helper.TryParse(tubesNumberTextBox.Text) == false)
+			else if (Helper.TryParse(tubesNumberNewTextBox.Text) == false)
 			{
 				notification.Text += "<li>" + strings["tubesNumberWrongFormat"] + "</li>";
-				tubesNumberTextBox.BackColor = Color.Red;
+				tubesNumberNewTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+
+			//Кол-во б.у. НКТ
+			if (tubesNumberOldTextBox.Text.Length == 0)
+			{
+				notification.Text += "<li>" + strings["tubesNumberMissing"] + "</li>";
+				tubesNumberOldTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+			else if (Helper.TryParse(tubesNumberOldTextBox.Text) == false)
+			{
+				notification.Text += "<li>" + strings["tubesNumberWrongFormat"] + "</li>";
+				tubesNumberOldTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+
+			//Кол-во новых штанг
+			if (rodNumberNewTextBox.Text.Length == 0)
+			{
+				notification.Text += "<li>" + strings["rodNumberMissing"] + "</li>";
+				rodNumberNewTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+			else if (Helper.TryParse(rodNumberNewTextBox.Text) == false)
+			{
+				notification.Text += "<li>" + strings["tubesNumberWrongFormat"] + "</li>";
+				rodNumberNewTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+
+			//Кол-во старых штанг
+			if (rodNumberOldTextBox.Text.Length == 0)
+			{
+				notification.Text += "<li>" + strings["rodNumberMissing"] + "</li>";
+				rodNumberOldTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+			else if (Helper.TryParse(rodNumberOldTextBox.Text) == false)
+			{
+				notification.Text += "<li>" + strings["tubesNumberWrongFormat"] + "</li>";
+				rodNumberOldTextBox.BackColor = Color.Red;
+				isValid = false;
+			}
+
+			//Насос
+			if (!pumpNewRadioButton.Checked && !pumpOldRadioButton.Checked)
+			{
+				notification.Text += "<li>" + strings["pumpStatusNotChecked"] + "</li>";
+				pumpNewRadioButton.BackColor = Color.Red;
+				pumpOldRadioButton.BackColor = Color.Red;
 				isValid = false;
 			}
 
@@ -106,7 +164,11 @@ namespace RFID_UHF_Net.Forms
 			{
 				id = ((ComboBoxItem)repairsComboBox.SelectedItem).id,
 				actTypeId = ((ComboBoxItem)actTypeIdComboBox.SelectedItem).id,
-				tubesNumber = Int32.Parse(tubesNumberTextBox.Text)
+				tubesNumberNew = Int32.Parse(tubesNumberNewTextBox.Text),
+				tubesNumberOld = Int32.Parse(tubesNumberOldTextBox.Text),
+				rodNumberNew = Int32.Parse(rodNumberNewTextBox.Text),
+				rodNumberOld = Int32.Parse(rodNumberOldTextBox.Text),
+				pumpTypeId = pumpNewRadioButton.Checked ? 1 : 2
 			};
 
 			var response = M3Client.web.CreateAct(act);
@@ -121,7 +183,12 @@ namespace RFID_UHF_Net.Forms
 				#if !DEBUG
                 repairsComboBox.SelectedItem = null;
                 actTypeIdComboBox.SelectedItem = null;
-				tubesNumberTextBox.Text = "";
+				tubesNumberNewTextBox.Text = "";
+				tubesNumberOldTextBox.Text = "";
+				rodNumberNewTextBox.Text = "";
+				rodNumberOldTextBox.Text = "";
+				pumpNewRadioButton.Checked = false;
+				pumpOldRadioButton.Checked = false;
 				#endif
 			}
 			else
@@ -131,6 +198,28 @@ namespace RFID_UHF_Net.Forms
 			}
 
 			(sender as Button).Enabled = true;
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tubesNumberNewTextBox_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void ActForm_Closing(object sender, CancelEventArgs e)
+		{
+			MessageBox.Show("ActForm_Closing");
+			M3Client.otherFormIsClosed = true;
+		}
+
+		private void ActForm_LostFocus(object sender, EventArgs e)
+		{
+
+			this.Activate();
 		}
 	}
 }

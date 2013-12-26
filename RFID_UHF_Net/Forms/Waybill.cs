@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +8,7 @@ using System.Windows.Forms;
 using com.caen.RFIDLibrary;
 using com.abitech.rfid;
 
-namespace RFID_UHF_Net.Forms
+namespace com.abitech.rfid.Forms
 {
     public partial class WaybillForm : Form
     {
@@ -38,7 +37,6 @@ namespace RFID_UHF_Net.Forms
 			this.Text = "";
 
             readTagButton.Text = strings["readTag"];
-
             tubeStatusLabel.Text = strings["tubeStatus"];
             tubeStatusNew.Text = strings["tubeStatusNew"];
             tubeStatusOld.Text = strings["tubeStatusOld"];
@@ -98,11 +96,13 @@ namespace RFID_UHF_Net.Forms
             var isValid = true;
 			notification.Text = "<font face='Arial'>";
             notificationLabel.Text = "";
+			notification.Visible = false;
 
 			tubeStatusOld.BackColor = Color.White;
 			tubeStatusNew.BackColor = Color.White;
 			tubesNumberTextBox.BackColor = Color.White;
 			waybillNumberTextBox.BackColor = Color.White;
+
 
             #region Валидация полей
             if (!tubeStatusOld.Checked && !tubeStatusNew.Checked)
@@ -129,7 +129,7 @@ namespace RFID_UHF_Net.Forms
 
             if (tubesNumberTextBox.Text.Length == 0)
             {
-				notification.Text += "<li>" + strings["tubesNumberMissing"] + "</li>";
+				notification.Text += "<li>" + strings["numberMissing"] + "</li>";
 				tubesNumberTextBox.BackColor = Color.Red;
                 isValid = false;
             }

@@ -1,4 +1,4 @@
-﻿namespace RFID_UHF_Net.Forms
+﻿namespace com.abitech.rfid.Forms
 {
     partial class WaybillForm
     {
@@ -105,7 +105,7 @@
 			this.tubeStatusLabel.Location = new System.Drawing.Point(5, 68);
 			this.tubeStatusLabel.Name = "tubeStatusLabel";
 			this.tubeStatusLabel.Size = new System.Drawing.Size(100, 20);
-			this.tubeStatusLabel.Text = "Тип труб";
+			this.tubeStatusLabel.Text = "Тип";
 			// 
 			// tubesNumberLabel
 			// 
@@ -113,7 +113,7 @@
 			this.tubesNumberLabel.Location = new System.Drawing.Point(111, 114);
 			this.tubesNumberLabel.Name = "tubesNumberLabel";
 			this.tubesNumberLabel.Size = new System.Drawing.Size(100, 20);
-			this.tubesNumberLabel.Text = "Число НКТ";
+			this.tubesNumberLabel.Text = "Количество";
 			// 
 			// notificationLabel
 			// 

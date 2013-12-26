@@ -6,14 +6,19 @@ using System.Windows.Forms;
 using com.abitech.rfid;
 using Microsoft.WindowsCE.Forms;
 using com.caen.RFIDLibrary;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Reflection;
 
-namespace RFID_UHF_Net.Forms
+namespace com.abitech.rfid.Forms
 {
-
 	public partial class MainForm : Form
 	{
+		String password = "314159";
+		String keypressed = String.Empty;
+
 		volatile bool shouldStop = true;
-		bool isTeamNumberUpdated = false;
+
 		Thread deviceActivityThread;
 		Thread updatingTeamNumberThread;
 		DeviceKeyRequest deviceKeyRequest = new DeviceKeyRequest();
@@ -27,6 +32,8 @@ namespace RFID_UHF_Net.Forms
 			#if !DEBUG
 			testWaybillForm.Visible = false;
 			testWaybillForm.Enabled = false;
+			orderListButton.Visible = false;
+			orderListButton.Enabled = false;
 			#endif
 
 			status = M3Client.Init();
@@ -34,18 +41,19 @@ namespace RFID_UHF_Net.Forms
 			if (status == M3ClientInitializationStatus.ClientConfigurationMissing)
 			{
 				titleLabel.Text = i8n.strings["technicalAssistanceNeeded"];
-				// notificationLabel.Text = i8n.strings["clientConfigurationMissing"];
+				notificationLabel.Text = i8n.strings["clientConfigurationMissing"];
 				return;
 			}
 			else if (status == M3ClientInitializationStatus.ReaderNotReady)
 			{
 				titleLabel.Text = i8n.strings["readerNotReady"];
 				return;
-			}
+			} 
 			else if (status == M3ClientInitializationStatus.Ok)
 			{
 				titleLabel.Text = i8n.strings["waitForConnection"];
 			}
+
 
 			//Пока не получим номер НГДУ, бригады и должность (бригадир, мастер базы),
 			//контролы разблокированы не будут
@@ -54,12 +62,11 @@ namespace RFID_UHF_Net.Forms
 
 			//Сообщаем серверу каждые N секунд, что устройство в сети
 			//и имеет такие-то координаты
-			deviceActivityThread = new Thread(new ThreadStart(() => { SendNetworkStatus(); }));
 
-			#if !DEBUG
+			/* deviceActivityThread = new Thread(new ThreadStart(() => { SendNetworkStatus(); }));
 			deviceActivityThread.IsBackground = true;
 			deviceActivityThread.Start();
-			#endif
+			*/
 
 			// M3Client.InitGps();
 
@@ -71,6 +78,11 @@ namespace RFID_UHF_Net.Forms
 			{
 				languageSelectorKzRadioButton.Checked = true;
 			}
+
+			i8nalize();
+
+			menuItem1.Text = i8n.strings["Build"] + " №" + M3Client.configuration.Build;
+
 		}
 
 		//Манипуляция с контролами
@@ -94,10 +106,7 @@ namespace RFID_UHF_Net.Forms
 		{
 			i8n.strings.SetLanguage(language);
 
-			newRepairButton.Text = i8n.strings["newRepair"];
-			newOrderButton.Text = i8n.strings["newOrder"];
-			orderListButton.Text = i8n.strings["orderList"];
-			newActButton.Text = i8n.strings["newAct"];
+			i8nalize();
 
 			M3Client.configuration.Language = language;
 			M3Client.configuration.Save();
@@ -107,8 +116,8 @@ namespace RFID_UHF_Net.Forms
 		{
 			if (M3Client.configuration.Role == Roles.repairForeman)
 			{
-				titleLabel.Text = i8n.strings["ogpd"]
-				  + M3Client.configuration.Location
+				titleLabel.Text =
+					M3Client.configuration.Location
 				  + " " + i8n.strings["team"]
 				  + M3Client.configuration.Team;
 			}
@@ -155,40 +164,34 @@ namespace RFID_UHF_Net.Forms
 
 		public void GetDeviceDescription()
 		{
-			var time = DateTime.Now.AddSeconds(20);
 			RpcResponse<DeviceDescription> response;
 
-			while (shouldStop)
+			bool error = true;
+
+			while (error)
 			{
-				if (time.CompareTo(DateTime.Now) > 0)
-				{
-					continue;
-				}
-
-				time = DateTime.Now.AddSeconds(5);
 				response = M3Client.web.GetDeviceDescription();
-
 				if (response.error != null)
 				{
 					continue;
 				}
 
-				//Если запуск впервый раз
-				if (isTeamNumberUpdated == false)
-				{
-					this.Invoke((System.Threading.ThreadStart)delegate() { EnableControls(true); });
-				}
-
-				isTeamNumberUpdated = true;
-
+				this.Invoke((System.Threading.ThreadStart)delegate() { EnableControls(true); });
 				M3Client.configuration.Update(response.result);
 				this.Invoke((System.Threading.ThreadStart)delegate(){ UpdateTitleLabel(); });
+				error = false;
 			}
 		}
 
 		//События
 
 		private void MainFormClosing(object sender, CancelEventArgs e)
+		{
+			e.Cancel = false;
+			Exit();
+		}
+
+		private void Exit()
 		{
 			shouldStop = false;
 
@@ -209,7 +212,7 @@ namespace RFID_UHF_Net.Forms
 
 			if (M3Client.gps != null && M3Client.gps.Close())
 			{
-				MessageBox.Show("Успешное закрытие GPS");
+				DebugMessageBox.Show("Успешное закрытие GPS");
 			}
 
 			Application.Exit();
@@ -218,7 +221,9 @@ namespace RFID_UHF_Net.Forms
 		private void RepairForm_Click(object sender, EventArgs e)
 		{
 			var repairForm = new RepairForm();
-			repairForm.Show();
+			M3Client.otherFormIsClosed = false;
+			repairForm.ShowDialog();
+
 		}
 
 		private void OrderForm_Click(object sender, EventArgs e)
@@ -242,7 +247,9 @@ namespace RFID_UHF_Net.Forms
 			if (flag == true)
 			{
 				var form = new OrderForm(response.result);
+				M3Client.otherFormIsClosed = false;
 				form.ShowDialog();
+
 			}
 		}
 
@@ -294,6 +301,7 @@ namespace RFID_UHF_Net.Forms
 			if (flag == true)
 			{
 				var form = new ActForm();
+				M3Client.otherFormIsClosed = false;
 				form.ShowDialog();
 			}
 		}
@@ -376,18 +384,15 @@ namespace RFID_UHF_Net.Forms
 			M3Client.configuration.Server = serverLocationUrlTextBox.Text;
 
 			var response = M3Client.web.GetNewDeviceKey(deviceKeyRequest);
-
-			if (response.error != null)
+			if (response.error == null)
 			{
-				maintenanceLabel.Text = i8n.strings["getNewDeviceKeyFailure"] + " Код ошибки: " + response.error;
+				M3Client.configuration.DeviceKey = response.result.deviceKey;
+				M3Client.configuration.Save();
+				maintenanceLabel.Text = i8n.strings["getNewDeviceKeySuccess"];
 			}
 			else
 			{
-				maintenanceLabel.Text = i8n.strings["getNewDeviceKeySuccess"];
-				M3Client.configuration.DeviceKey = response.result.deviceKey;
-				M3Client.configuration.Save();
-				requestNewDeviceKeyResultButton.Enabled = false;
-				requestDeviceDescriptionButton.Enabled = true;
+				maintenanceLabel.Text = i8n.strings["getNewDeviceKeyFailure"];
 			}
 			(sender as Button).Enabled = true;
 		}
@@ -421,7 +426,7 @@ namespace RFID_UHF_Net.Forms
 
 			foreach (var device in response.result)
 			{
-				var description = "#" + device.id + " " + i8n.strings["ogpd"] + " " + device.location + " " + i8n.strings["team"] + " " + device.team;
+				var description = "#" + device.id + " " + device.location + " " + i8n.strings["team"] + " " + device.team;
 				deviceListComboBox.Items.Add(new ComboBoxItem() { id = Int32.Parse(device.id), value = description });
 			}
 			requestNewDeviceKeyResultButton.Enabled = true;
@@ -455,6 +460,26 @@ namespace RFID_UHF_Net.Forms
 			M3Client.configuration.Role = Roles.tubeMaster;
 			M3Client.configuration.Save();
 			(sender as Button).Enabled = true;
+		}
+
+		private void MainForm_LostFocus(object sender, EventArgs e)
+		{
+			//if (M3Client.otherFormIsClosed == true)
+			{
+				this.Activate();
+			}
+			
+		}
+
+		private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			keypressed += e.KeyChar.ToString();
+
+			if (Regex.IsMatch(keypressed, password))
+			{
+				keypressed = String.Empty;
+				Exit();
+			}
 		}
 	}
 }

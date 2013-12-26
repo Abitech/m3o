@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using RFID_UHF_Net.Forms;
+using com.abitech.rfid.Forms;
+using System.Threading;
+using System.IO;
 
-namespace RFID_UHF_Net
+namespace com.abitech.rfid
 {
     static class Program
     {
@@ -13,7 +15,14 @@ namespace RFID_UHF_Net
         [MTAThread]
         static void Main()
         {
+			FileStream fs;
+			if (Helper.Lock(out fs) == false)
+			{
+				MessageBox.Show("Программа АСКОУ уже запущена.");
+				return;
+			}
             Application.Run(new MainForm());
+			fs.Close();
         }
     }
 }

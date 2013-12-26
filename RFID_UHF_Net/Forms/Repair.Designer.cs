@@ -1,4 +1,4 @@
-﻿namespace RFID_UHF_Net.Forms
+﻿namespace com.abitech.rfid.Forms
 {
     partial class RepairForm
     {
@@ -41,6 +41,10 @@
 			this.notification = new Microsoft.WindowsCE.Forms.Notification();
 			this.createRepairButton = new System.Windows.Forms.Button();
 			this.notificationLabel = new System.Windows.Forms.Label();
+			this.rodDiameterIdLabel = new System.Windows.Forms.Label();
+			this.rodDiameterIdComboBox = new System.Windows.Forms.ComboBox();
+			this.pumpIdLabel = new System.Windows.Forms.Label();
+			this.pumpIdComboBox = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// ogpwLabel
@@ -90,7 +94,7 @@
 			// 
 			// tubeDiameterIdComboBox
 			// 
-			this.tubeDiameterIdComboBox.Location = new System.Drawing.Point(3, 174);
+			this.tubeDiameterIdComboBox.Location = new System.Drawing.Point(110, 33);
 			this.tubeDiameterIdComboBox.Name = "tubeDiameterIdComboBox";
 			this.tubeDiameterIdComboBox.Size = new System.Drawing.Size(100, 22);
 			this.tubeDiameterIdComboBox.TabIndex = 4;
@@ -98,10 +102,10 @@
 			// tubeDiameterIdLabel
 			// 
 			this.tubeDiameterIdLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
-			this.tubeDiameterIdLabel.Location = new System.Drawing.Point(3, 151);
+			this.tubeDiameterIdLabel.Location = new System.Drawing.Point(109, 10);
 			this.tubeDiameterIdLabel.Name = "tubeDiameterIdLabel";
-			this.tubeDiameterIdLabel.Size = new System.Drawing.Size(100, 20);
-			this.tubeDiameterIdLabel.Text = "Диаметр, мм";
+			this.tubeDiameterIdLabel.Size = new System.Drawing.Size(128, 20);
+			this.tubeDiameterIdLabel.Text = "Диаметр НКТ, мм";
 			// 
 			// notification
 			// 
@@ -124,12 +128,46 @@
 			this.notificationLabel.Size = new System.Drawing.Size(233, 39);
 			this.notificationLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
+			// rodDiameterIdLabel
+			// 
+			this.rodDiameterIdLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.rodDiameterIdLabel.Location = new System.Drawing.Point(110, 57);
+			this.rodDiameterIdLabel.Name = "rodDiameterIdLabel";
+			this.rodDiameterIdLabel.Size = new System.Drawing.Size(130, 20);
+			this.rodDiameterIdLabel.Text = "Диаметр штанг, мм";
+			// 
+			// rodDiameterIdComboBox
+			// 
+			this.rodDiameterIdComboBox.Location = new System.Drawing.Point(109, 80);
+			this.rodDiameterIdComboBox.Name = "rodDiameterIdComboBox";
+			this.rodDiameterIdComboBox.Size = new System.Drawing.Size(99, 22);
+			this.rodDiameterIdComboBox.TabIndex = 12;
+			// 
+			// pumpIdLabel
+			// 
+			this.pumpIdLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular);
+			this.pumpIdLabel.Location = new System.Drawing.Point(109, 104);
+			this.pumpIdLabel.Name = "pumpIdLabel";
+			this.pumpIdLabel.Size = new System.Drawing.Size(127, 20);
+			this.pumpIdLabel.Text = "Тип насоса";
+			// 
+			// pumpIdComboBox
+			// 
+			this.pumpIdComboBox.Location = new System.Drawing.Point(110, 127);
+			this.pumpIdComboBox.Name = "pumpIdComboBox";
+			this.pumpIdComboBox.Size = new System.Drawing.Size(100, 22);
+			this.pumpIdComboBox.TabIndex = 14;
+			// 
 			// RepairForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(240, 268);
+			this.Controls.Add(this.pumpIdComboBox);
+			this.Controls.Add(this.pumpIdLabel);
+			this.Controls.Add(this.rodDiameterIdComboBox);
+			this.Controls.Add(this.rodDiameterIdLabel);
 			this.Controls.Add(this.notificationLabel);
 			this.Controls.Add(this.createRepairButton);
 			this.Controls.Add(this.tubeDiameterIdComboBox);
@@ -143,6 +181,9 @@
 			this.Menu = this.mainMenu1;
 			this.Name = "RepairForm";
 			this.Text = "NewRepair";
+			this.Load += new System.EventHandler(this.RepairForm_Load);
+			this.LostFocus += new System.EventHandler(this.RepairForm_LostFocus);
+			this.Closing += new System.ComponentModel.CancelEventHandler(this.RepairForm_Closing);
 			this.ResumeLayout(false);
 
         }
@@ -159,6 +200,10 @@
         private System.Windows.Forms.Label tubeDiameterIdLabel;
         private Microsoft.WindowsCE.Forms.Notification notification;
         private System.Windows.Forms.Button createRepairButton;
-        private System.Windows.Forms.Label notificationLabel;
+		private System.Windows.Forms.Label notificationLabel;
+		private System.Windows.Forms.Label rodDiameterIdLabel;
+		private System.Windows.Forms.ComboBox rodDiameterIdComboBox;
+		private System.Windows.Forms.Label pumpIdLabel;
+		private System.Windows.Forms.ComboBox pumpIdComboBox;
     }
 }

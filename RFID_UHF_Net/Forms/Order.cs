@@ -5,7 +5,7 @@ using com.abitech.rfid;
 using System.Collections.Generic;
 using CodeBetter.Json;
 
-namespace RFID_UHF_Net.Forms
+namespace com.abitech.rfid.Forms
 {
     public partial class OrderForm : Form
     {
@@ -32,7 +32,12 @@ namespace RFID_UHF_Net.Forms
             dateExpectedLabel.Text = strings["dateExpected"];
 
             orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 1, value = strings["orderTypeTubesDelivery"] });
-            orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 2, value = strings["orderTypeTubesCleaning"] });
+			orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 3, value = strings["orderTypeRodDelivery"] });
+			orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 5, value = strings["orderTypePumpDelivery"] });
+
+			orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 2, value = strings["orderTypeTubesCleaning"] });
+			orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 4, value = strings["orderTypeRodCleaning"] });
+			orderTypeIdComboBox.Items.Add(new ComboBoxItem() { id = 6, value = strings["orderTypePumpCleaning"] });
 
             orderReasonIdComboBox.Items.Add(new ComboBoxItem() { id = 1, value = strings["orderReasonReplacement"] });
             orderReasonIdComboBox.Items.Add(new ComboBoxItem() { id = 2, value = strings["orderReasonBath"] });
@@ -101,7 +106,7 @@ namespace RFID_UHF_Net.Forms
             //Кол-во
             if (tubesNumberTextBox.Text.Length == 0)
             {
-                notification.Text += "<li>" + strings["tubesNumberMissing"] + "</li>";
+				notification.Text += "<li>" + strings["numberMissing"] + "</li>";
                 tubesNumberTextBox.BackColor = Color.Red;
                 isValid = false;
             }
@@ -164,6 +169,11 @@ namespace RFID_UHF_Net.Forms
             }
 
 			(sender as Button).Enabled = true;
-        }
+		}
+
+		private void OrderForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			M3Client.otherFormIsClosed = true;
+		}
     }
 }

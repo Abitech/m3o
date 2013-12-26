@@ -1,4 +1,4 @@
-﻿namespace RFID_UHF_Net.Forms
+﻿namespace com.abitech.rfid.Forms
 {
 	partial class OrderListForm
     {
@@ -33,7 +33,7 @@
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.ordersListView = new System.Windows.Forms.ListView();
 			this.oilwellNumberColumnHeader = new System.Windows.Forms.ColumnHeader();
-			this.orderType = new System.Windows.Forms.ColumnHeader();
+			this.orderTypeColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.tubeDiameterColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.orderedTubesAmountColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.shippedTubesAmountColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -45,7 +45,7 @@
 			// 
 			this.ordersListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
 			this.ordersListView.Columns.Add(this.oilwellNumberColumnHeader);
-			this.ordersListView.Columns.Add(this.orderType);
+			this.ordersListView.Columns.Add(this.orderTypeColumnHeader);
 			this.ordersListView.Columns.Add(this.tubeDiameterColumnHeader);
 			this.ordersListView.Columns.Add(this.orderedTubesAmountColumnHeader);
 			this.ordersListView.Columns.Add(this.shippedTubesAmountColumnHeader);
@@ -68,28 +68,24 @@
 			this.oilwellNumberColumnHeader.Text = "Скважина";
 			this.oilwellNumberColumnHeader.Width = 90;
 			// 
-			// orderType
+			// orderTypeColumnHeader
 			// 
-			this.orderType.Text = "Тип заявки";
-			this.orderType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.orderType.Width = 95;
+			this.orderTypeColumnHeader.Text = "Тип заявки";
+			this.orderTypeColumnHeader.Width = 95;
 			// 
 			// tubeDiameterColumnHeader
 			// 
 			this.tubeDiameterColumnHeader.Text = "ø";
-			this.tubeDiameterColumnHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.tubeDiameterColumnHeader.Width = 54;
 			// 
 			// orderedTubesAmountColumnHeader
 			// 
 			this.orderedTubesAmountColumnHeader.Text = "Тапсырыс бойынша";
-			this.orderedTubesAmountColumnHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.orderedTubesAmountColumnHeader.Width = 77;
 			// 
 			// shippedTubesAmountColumnHeader
 			// 
 			this.shippedTubesAmountColumnHeader.Text = "Қабылданған саны";
-			this.shippedTubesAmountColumnHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.shippedTubesAmountColumnHeader.Width = 98;
 			// 
 			// cancelOrderButton
@@ -112,7 +108,7 @@
 			this.attachWaybillButton.Text = "Прикрепить ТТН";
 			this.attachWaybillButton.Click += new System.EventHandler(this.attach_Waybill_Click);
 			// 
-			// OrdersForm
+			// OrderListForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -122,7 +118,7 @@
 			this.Controls.Add(this.cancelOrderButton);
 			this.Controls.Add(this.ordersListView);
 			this.Menu = this.mainMenu1;
-			this.Name = "OrdersForm";
+			this.Name = "OrderListForm";
 			this.ResumeLayout(false);
 
         }
@@ -136,6 +132,6 @@
         private System.Windows.Forms.Button cancelOrderButton;
         private System.Windows.Forms.Button attachWaybillButton;
         private System.Windows.Forms.ColumnHeader shippedTubesAmountColumnHeader;
-        private System.Windows.Forms.ColumnHeader orderType;
+        private System.Windows.Forms.ColumnHeader orderTypeColumnHeader;
     }
 }

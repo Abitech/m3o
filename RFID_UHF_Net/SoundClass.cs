@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace RFID_UHF_Net
+namespace com.abitech.rfid
 {
     class SoundClass
     {

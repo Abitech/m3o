@@ -4,11 +4,19 @@ using System.Text;
 using System.Text.RegularExpressions;
 using CodeBetter.Json;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace com.abitech.rfid
 {
     class RfidJson
     {
+		private static Regex _regex = new Regex(@"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled);
+		
+		public static string DecodeEscapeSequences(string value)
+		{
+			return _regex.Replace(value, delegate(Match match) { return ((char)Int32.Parse(match.Value.Substring(2), NumberStyles.HexNumber)).ToString(); });
+		}
+
         public static RpcResponse<string> Deserialize(string s)
         {
             var response = new RpcResponse<string>();

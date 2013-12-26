@@ -7,12 +7,12 @@ using System.Text;
 using System.Windows.Forms;
 using com.caen.RFIDLibrary;
 using Microsoft.WindowsCE.Forms;
-using RFID_UHF_Net;
+using com.abitech.rfid;
 
 
 namespace com.abitech.rfid
 {
-	enum M3ClientInitializationStatus
+	public enum M3ClientInitializationStatus
 	{
 		Ok = 0,
 		ClientConfigurationMissing = 1,
@@ -29,6 +29,7 @@ namespace com.abitech.rfid
 
     class M3Client
     {
+		public static bool otherFormIsClosed = true;
 		public static RfidWebClient web { get; private set; }
 		public static ClientConfiguration configuration { get; private set; }
 		public static CAENRFIDReader reader {  get; private set; }
@@ -41,9 +42,12 @@ namespace com.abitech.rfid
 
 		public static M3ClientInitializationStatus Init()
 		{
-			//Берём из реестра данные о соединении
+			//Берём из реестра данные о соединении и сборке
 			configuration = new ClientConfiguration();
-			//Интернационализаци
+			//Сохраняем в реестре новую версию сборки
+			configuration.Build = ClientConfiguration.DefaultBuild;
+			configuration.Save();
+			//Интернационализация
 			i8n.Init();
 			i8n.strings.SetLanguage(configuration.Language);
 
@@ -76,7 +80,7 @@ namespace com.abitech.rfid
 
 			if (gps.Open(gpsMessageWindow.Hwnd, "COM2:", 9600, GetGpsInfoDelegate))
 			{
-				MessageBox.Show("Соединение с GPS удалось");
+				DebugMessageBox.Show("Соединение с GPS удалось");
 			}
 			else
 			{
@@ -102,14 +106,14 @@ namespace com.abitech.rfid
 			{
 				if (msg == null || msg.WParam == null)
 				{
-					MessageBox.Show("msg == null || msg.WParam == null");
+					DebugMessageBox.Show("msg == null || msg.WParam == null");
 				}
 
 				gpsInfo = (GpsParse.GPS_PARSE_INFO)Marshal.PtrToStructure(msg.WParam, typeof(GpsParse.GPS_PARSE_INFO));
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show("GPS умер " + e.Message);
+				DebugMessageBox.Show("GPS умер " + e.Message);
 			}
 		}
 

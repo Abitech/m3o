@@ -5,9 +5,9 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.WindowsCE.Forms;
-using RFID_UHF_Net.Forms;
+using com.abitech.rfid.Forms;
 
-namespace RFID_UHF_Net
+namespace com.abitech.rfid
 {
 
 	public class GpsParse

@@ -1,19 +1,18 @@
 ﻿using System;
-
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using com.abitech.rfid;
-using com.caen.RFIDLibrary;
 
-namespace RFID_UHF_Net.Forms
+namespace com.abitech.rfid.Forms
 {
     public partial class OrderListForm : Form
     {
         private Strings strings;
+
+		private Dictionary<int, string> orderTypeDictionary;
+		private Dictionary<int, string> rodDiameterDictionary;
+		private Dictionary<int, string> pumpDictionary;
+		private Dictionary<int, string> tubeDiameterDictionary;
 
 		public OrderListForm(List<OrderListRecord> orders)
         {
@@ -22,35 +21,82 @@ namespace RFID_UHF_Net.Forms
 			strings = i8n.strings;
 			this.Text = "";
 
-			SetOrders(orders);
-
             oilwellNumberColumnHeader.Text = strings["oilwellNumber"];
+			orderTypeColumnHeader.Text = strings["orderType"];
             tubeDiameterColumnHeader.Text = strings["tubeDiameterAbbr"];
             orderedTubesAmountColumnHeader.Text = strings["orderedTubesAmount"];
             shippedTubesAmountColumnHeader.Text = strings["shippedTubesAmount"];
             cancelOrderButton.Text = strings["cancelOrder"];
             attachWaybillButton.Text = strings["attachWaybill"];
 
+			orderTypeDictionary = new Dictionary<int, string>
+                {
+                    { 1, strings["orderTypeTubesDelivery"] },
+                    { 2, strings["orderTypeTubesCleaning"] },
+                    { 3, strings["orderTypeRodDelivery"] },
+                    { 4, strings["orderTypeRodCleaning"] },
+                    { 5, strings["orderTypePumpDelivery"] },
+					{ 6, strings["orderTypePumpCleaning"] },					 
+                };
+
+			rodDiameterDictionary = new Dictionary<int, string>
+				{
+                    { 1, "22" },
+                    { 2, "19" },
+                    { 3, "22 со скребком" },
+                    { 4, "19 со скребком" },
+					{ 1000, strings["otherOption"] },
+				};
+
+ 			pumpDictionary = new Dictionary<int, string>
+				{
+                    { 1, "44" },
+                    { 2, "57" },
+                    { 3, "70" },
+					{ 1000, strings["otherOption"] },
+				};
+
+			tubeDiameterDictionary = new Dictionary<int, string>
+                {
+                    { 1, "60" },
+                    { 2, "73" },
+                    { 3, "73 выс" },
+                    { 4, "89" },
+					{ 1000, strings["otherOption"] },
+                };
+
             if (M3Client.configuration.Role != Roles.repairForeman)
             {
                 cancelOrderButton.Enabled = false;
             }
+
+			SetOrders(orders);
         }
 
 		public bool SetOrders(List<OrderListRecord> orders)
 		{
-			ordersListView.Items.Clear();
-
-			var tubeDiameter = new TubeDiameter();
+			ordersListView.Items.Clear();			
 
 			foreach (var order in orders)
 			{
 				var item = new ListViewItem { Text = order.ogpw.ToString() + "—" + order.cjp.ToString() + "—" + order.oilwellNumber.ToString() };
-				item.SubItems.Add(order.orderTypeId == 1 ? strings["orderTypeTubesDelivery"] : strings["orderTypeTubesCleaning"]);
-				item.SubItems.Add(tubeDiameter[order.tubeDiameterId]);
+				item.SubItems.Add(orderTypeDictionary[order.orderTypeId]);
+
+				if (order.orderTypeId == 1 || order.orderTypeId == 2)
+				{
+					item.SubItems.Add(tubeDiameterDictionary[order.tubeDiameterId]);
+				}
+				else if (order.orderTypeId == 3 || order.orderTypeId == 4)
+				{
+					item.SubItems.Add(rodDiameterDictionary[order.tubeDiameterId]);
+				}
+				else if (order.orderTypeId == 5 || order.orderTypeId == 6)
+				{
+					item.SubItems.Add(pumpDictionary[order.tubeDiameterId]);
+				}
+
 				item.SubItems.Add(order.tubesNumber.ToString());
 				item.SubItems.Add(order.tubesNumberByWaybills.ToString());
-
 				item.Tag = order;
 				ordersListView.Items.Add(item);
 			}

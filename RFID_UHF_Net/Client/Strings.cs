@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Text;
 using com.abitech.rfid;
@@ -7,7 +6,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace RFID_UHF_Net
+namespace com.abitech.rfid
 {
 	/// <summary>
 	/// Интернационализация (i8n)
@@ -94,6 +93,10 @@ namespace RFID_UHF_Net
 
             strings.Add("ru", "team", "Бригада №");
             strings.Add("kz", "team", "Бригада №");
+		    
+			//
+			strings.Add("ru", "otherOption", "Прочее");
+			strings.Add("kz", "otherOption", "Oзгі"); //Өзгі
 
 			//
 
@@ -104,10 +107,28 @@ namespace RFID_UHF_Net
 			strings.Add("kz", "clientConfigurationMissing", "Құралымның күйттесі жок.");
 
 			strings.Add("ru", "readerNotReady", "Требуется перезагрузка считывателя.");
-			strings.Add("kz", "readerNotReady", "Требуется перезагрузка считывателя.");
+			strings.Add("kz", "readerNotReady", "Есептеуiш перезагрузка сұрайды.");
 
 			strings.Add("ru", "waitForConnection", "Установка соединения. Ждите...");
 			strings.Add("kz", "waitForConnection", "Құралымның қондырғысы. Күтіңіз...");
+
+			strings.Add("ru", "Build", "Сборка");
+			strings.Add("kz", "Build", "Сборка");
+
+			strings.Add("ru", "checkingLatestUpdate", "Проверка наличия обновлений программы...");
+			strings.Add("kz", "checkingLatestUpdate", "Проверка наличия обновлений программы...");
+
+			strings.Add("ru", "currentBuildMostUpdated", "Используется самая последняя версия.");
+			strings.Add("kz", "currentBuildMostUpdated", "Используется самая последняя версия.");
+
+			strings.Add("ru", "downloadingNewBuild", "Загружается новая версия программы.");
+			strings.Add("kz", "downloadingNewBuild", "Загружается новая версия программы.");
+
+			strings.Add("ru", "crcCorrupted", "Контрольная сумма не совпадает. Повторная загрузка новой версии программы.");
+			strings.Add("kz", "crcCorrupted", "Контрольная сумма не совпадает. Повторная загрузка новой версии программы.");
+
+			strings.Add("ru", "startProgram", "Загрузка завершена. Запуск.");
+			strings.Add("kz", "startProgram", "Загрузка закончена. Запуск.");			
 
 			strings.Add("ru", "connectionFailure", "Связь не установлена.");
 			strings.Add("kz", "connectionFailure", "Байланыс жок.");
@@ -134,16 +155,16 @@ namespace RFID_UHF_Net
 			strings.Add("kz", "getDeviceDescriptionSuccess", "Бригаданың мәліметтері қабылданды.");
 
 			strings.Add("ru", "noOrdersAvailable", "Текущих заявок нет. Все заявки были закрыты.");
-			strings.Add("kz", "noOrdersAvailable", "Кезекті өтінімдер жоқ. Өтінімдердің барлығы жабылған.");
+			strings.Add("kz", "noOrdersAvailable", "Кезекті oтінімдер жок. Отінімдердін барлыгы жабылган.");  // Кезекті өтінімдер жоқ. Өтінімдердің барлығы жабылған.
 
 			strings.Add("ru", "noRepairsAvailable", "Текущих ремонтов (нарядов) нет. Все ремонты были закрыты.");
-			strings.Add("kz", "noRepairsAvailable", "Кезекті жөндеу жоқ. Жөндеудін барлығы жабылған..");
+			strings.Add("kz", "noRepairsAvailable", "Кезекті жoндеу жок. Жондеудін барлыгы жабылган."); //	Кезекті жөндеу жоқ. Жөндеудін барлығы жабылған.
 
 			strings.Add("ru", "messageSending", "Идет отправка, подождите...");
 			strings.Add("kz", "messageSending", "Күте тұрыңыз, жіберілу үстінде...");
 
 			strings.Add("ru", "repeatAttempt", "Возникла ошибка. Возможно, нет связи. Повторите операцию.");
-			strings.Add("kz", "repeatAttempt", "Қате кетті. Мүмкін, байланыс жоқ. Операцияны қайталаңыз.");
+			strings.Add("kz", "repeatAttempt", "Кате кетті. Мумкін, байланыс жок. Операцияны кайталаныз."); //Қате кетті. Мүмкін, байланыс жоқ. Операцияны қайталаңыз.
 
             strings.Add("ru", "dispatchingStatusOK", "Доставлено.");
 			strings.Add("kz", "dispatchingStatusOK", "Жеткізілді.");
@@ -153,11 +174,11 @@ namespace RFID_UHF_Net
 
 			//
             //NewRepair
-			strings.Add("ru", "ogpd", "НДГУ №");
-			strings.Add("kz", "ogpd", "НГДУ №");
+			strings.Add("ru", "ogpd", "НГДУ №");
+			strings.Add("kz", "ogpd", "МГѲБ №");
 
             strings.Add("ru", "ogwp", "ЦДНГ");
-            strings.Add("kz", "ogwp", "ЦДНГ");
+            strings.Add("kz", "ogwp", "МТОЦ");
 
             strings.Add("ru", "cjp", "ГУ/ПС");
             strings.Add("kz", "cjp", "ГУ/ПС");
@@ -168,17 +189,42 @@ namespace RFID_UHF_Net
             strings.Add("ru", "oilwellNumber", "Cкважина №");
             strings.Add("kz", "oilwellNumber", "Ұңғыма нөмірі");
 
-            strings.Add("ru", "tubeDiameter", "Диаметр, мм");
-            strings.Add("kz", "tubeDiameter", "Диаметр, мм");
+            strings.Add("ru", "tubeDiameter", "Диаметр НКТ, мм.");
+			strings.Add("kz", "tubeDiameter", "СКҚ диаметрi, мм.");
 
+			strings.Add("ru", "rodDiameter", "Диаметр штанг, мм.");
+			strings.Add("kz", "rodDiameter", "Шыбықтардың диаметрi, мм.");
+
+			strings.Add("ru", "pumpType", "Тип насоса");
+			strings.Add("kz", "pumpType", "Сораптардың түрi");
+
+													
 			strings.Add("ru", "tubeDiameterAbbr", "ø");
 			strings.Add("kz", "tubeDiameterAbbr", "ø");
 			
 
             //NewOrder
 
-            strings.Add("ru", "orderType", "Тип заявки");
+            strings.Add("ru", "orderType", "Тип заявки");  //Тип заявки
             strings.Add("kz", "orderType", "Тапсырыс түрі");
+
+			strings.Add("ru", "orderTypeTubesDelivery", "Доставка НКТ");
+			strings.Add("kz", "orderTypeTubesDelivery", "СКҚ-ды жеткізу");
+
+			strings.Add("ru", "orderTypeTubesCleaning", "Уборка НКТ");
+			strings.Add("kz", "orderTypeTubesCleaning", "СКҚ-ды жинау");
+
+			strings.Add("ru", "orderTypeRodDelivery", "Доставка штанг");
+			strings.Add("kz", "orderTypeRodDelivery", "Шыбықтарды жеткізу");
+
+			strings.Add("ru", "orderTypeRodCleaning", "Уборка штанг");
+			strings.Add("kz", "orderTypeRodCleaning", "Шыбықтарды жинау");
+
+			strings.Add("ru", "orderTypePumpDelivery", "Доставка насоса");
+			strings.Add("kz", "orderTypePumpDelivery", "Сораптарды жинау");
+
+			strings.Add("ru", "orderTypePumpCleaning", "Уборка насоса");
+			strings.Add("kz", "orderTypePumpCleaning", "Сораптарды жинау");
 
             strings.Add("ru", "orderReason", "Основание"); // Основание заявки
             strings.Add("kz", "orderReason", "Себебі");
@@ -191,15 +237,30 @@ namespace RFID_UHF_Net
 
             strings.Add("ru", "orderReasonAssessment", "Допуск");
             strings.Add("kz", "orderReasonAssessment", "Кіру руксаты"); //рұқсаты
-            
-            strings.Add("ru", "orderTypeTubesDelivery", "Доставка НКТ");
-            strings.Add("kz", "orderTypeTubesDelivery", "НКК-ды жеткізу");
 
-            strings.Add("ru", "orderTypeTubesCleaning", "Уборка НКТ");
-            strings.Add("kz", "orderTypeTubesCleaning", "НКК-ды жинау");
+            strings.Add("ru", "tubesNumber", "Кол-во шт.");
+            strings.Add("kz", "tubesNumber", "Сан");
 
-            strings.Add("ru", "tubesNumber", "Кол-во НКТ, шт");
-            strings.Add("kz", "tubesNumber", "НКҚ саны");
+			strings.Add("ru", "tubesNumberNew", "Новые НКТ, шт.");
+			strings.Add("kz", "tubesNumberNew", "Жаңа СКҚ");
+
+			strings.Add("ru", "tubesNumberOld", "Б/у НКТ, шт.");
+			strings.Add("kz", "tubesNumberOld", "Б/қ СКҚ");
+
+			strings.Add("ru", "rodNumberNew", "Новые штанги, шт.");
+			strings.Add("kz", "rodNumberNew", "Жаңа шыбықтар");
+
+			strings.Add("ru", "rodNumberOld", "Б/у штанги, шт.");
+			strings.Add("kz", "rodNumberOld", "Б/қ шыбық");
+
+			strings.Add("ru", "pump", "Насос");
+			strings.Add("kz", "pump", "Сорап");
+
+			strings.Add("ru", "newSing", "Новый");
+			strings.Add("kz", "newSing", "Жаңа");
+
+			strings.Add("ru", "oldSing", "Старый");
+			strings.Add("kz", "oldSing", "Ескi");
 
             strings.Add("ru", "districtApproach", "Подъезд");
             strings.Add("kz", "districtApproach", "Көліктің келу тәсілі");
@@ -240,7 +301,13 @@ namespace RFID_UHF_Net
             strings.Add("kz", "ogpwWrongFormat", "\"ЦДНГ\" өрісінде тек сандар жазылу керек");
 
             strings.Add("ru", "tubeDiameterNotSelected", "Не выбран диаметр НКТ");
-            strings.Add("kz", "tubeDiameterNotSelected", "НКҚ-дың диаметрі таңданылмады");
+			strings.Add("kz", "tubeDiameterNotSelected", "СКҚ-дың диаметрі таңданылмады");
+
+			strings.Add("ru", "rodDiameterNotSelected", "Не выбран диаметр штанг");
+			strings.Add("kz", "rodDiameterNotSelected", "Шыбықтардың диаметрі таңданылмады");
+
+			strings.Add("ru", "pumpNotSelected", "Не выбран насос");
+			strings.Add("kz", "pumpNotSelected", "Сорап таңданылмады");
 
             strings.Add("ru", "oilwellNumberMissing", "Не указан номер скважины");
             strings.Add("kz", "oilwellNumberMissing", "Ұңғыма нөмірі көрсетілмеді");
@@ -249,10 +316,16 @@ namespace RFID_UHF_Net
             strings.Add("kz", "oilwellNumberWrongFormat", "\"Ұңғыма нөмірі\" өрісінде тек сандар жазылу керек");
 
             strings.Add("ru", "tubesNumberMissing", "Не указано количество НКТ");
-            strings.Add("kz", "tubesNumberMissing", "НКҚ-ның саны көрсетілмеді");
+            strings.Add("kz", "tubesNumberMissing", "СКҚ-ның саны көрсетілмеді");
+
+			strings.Add("ru", "numberMissing", "Не указано количество");
+			strings.Add("kz", "numberMissing", "Cаны көрсетілмеді");
+
+			strings.Add("ru", "rodNumberMissing", "Не указано количество НКТ");
+			strings.Add("kz", "rodNumberMissing", "Шыбықтардың саны көрсетілмеді");
 
             strings.Add("ru", "tubesNumberWrongFormat", "В поле \"Кол-во, шт\" должны быть только цифры");
-            strings.Add("kz", "tubesNumberWrongFormat", "\"Құбырлар саны,\" өрісінде тек сандар жазылу керек");
+            strings.Add("kz", "tubesNumberWrongFormat", "\"Cаны,\" өрісінде тек сандар жазылу керек");
 
             strings.Add("ru", "cjpMissing", "Не указана ГУ");
             strings.Add("kz", "cjpMissing", "ГУ көрсетілмеді");
@@ -304,8 +377,8 @@ namespace RFID_UHF_Net
             strings.Add("ru", "tubeStatusOld", "Старые");
             strings.Add("kz", "tubeStatusOld", "Ескі");
 
-            strings.Add("ru", "tubeStatus", "Состояние труб");
-            strings.Add("kz", "tubeStatus", "НКҚ күйі");
+            strings.Add("ru", "tubeStatus", "Состояние");   //НКТ
+			strings.Add("kz", "tubeStatus", "Күйі");
 
             strings.Add("ru", "waybillNumber", "ТТН №");
             strings.Add("kz", "waybillNumber", "ТТЖ №");
@@ -338,6 +411,9 @@ namespace RFID_UHF_Net
             strings.Add("ru", "tubeStatusNotChecked", "Не выбран тип подвески");
             strings.Add("kz", "tubeStatusNotChecked", "Подвесканың түрі таңдалмады");
 
+			strings.Add("ru", "pumpStatusNotChecked", "Не выбран тип насоса");
+			strings.Add("kz", "pumpStatusNotChecked", "Сораптың түрі таңдалмады");
+
             strings.Add("ru", "waybillNumberMissing", "Не указан номер ТТН");
             strings.Add("kz", "waybillNumberMissing", "Жүкқұжаттың нөмірі көрсетілмеді");
 
@@ -353,10 +429,10 @@ namespace RFID_UHF_Net
 			strings.Add("kz", "actTypes", "Акттың түрі");
 
 			strings.Add("ru", "actTypeExtraction", "Извлечение НКТ");
-			strings.Add("kz", "actTypeExtraction", "НКҚ-ны шығару");
+			strings.Add("kz", "actTypeExtraction", "СКҚ-ны шығару");
 
 			strings.Add("ru", "actTypeDescent", "Спуск НКТ");
-			strings.Add("kz", "actTypeDescent", "НКҚ түсіру");
+			strings.Add("kz", "actTypeDescent", "СКҚ түсіру");
 
 			strings.Add("ru", "actTypeNotSelected", "Не выбран вид акта");
 			strings.Add("kz", "actTypeNotSelected", "Акттың түрі таңдалмады");

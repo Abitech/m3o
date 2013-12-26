@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.WindowsCE.Forms;
 
-namespace RFID_UHF_Net
+namespace com.abitech.rfid
 {
 	public class GpsMessageWindow : MessageWindow
 	{

@@ -1,4 +1,4 @@
-﻿namespace RFID_UHF_Net.Forms
+﻿namespace com.abitech.rfid.Forms
 {
     partial class MainForm
     {
@@ -64,7 +64,7 @@
 			// 
 			// menuItem1
 			// 
-			this.menuItem1.Text = "Версия 1.5";
+			this.menuItem1.Text = "Версия 1.6.2";
 			// 
 			// newOrderButton
 			// 
@@ -194,7 +194,7 @@
 			this.tabPage2.Controls.Add(this.serverLocationUrlTextBox);
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(240, 242);
+			this.tabPage2.Size = new System.Drawing.Size(232, 239);
 			this.tabPage2.Text = "Обслуживание";
 			// 
 			// getDeviceListButton
@@ -273,11 +273,14 @@
 			this.ClientSize = new System.Drawing.Size(240, 268);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.teamNumberLabel);
+			this.KeyPreview = true;
 			this.Menu = this.mainMenu1;
 			this.MinimizeBox = false;
 			this.Name = "MainForm";
-			this.Text = "АСКОУ НКТ";
+			this.Text = "АСКОУ ПО";
+			this.LostFocus += new System.EventHandler(this.MainForm_LostFocus);
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.MainFormClosing);
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);

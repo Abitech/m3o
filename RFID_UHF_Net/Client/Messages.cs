@@ -14,7 +14,8 @@ namespace com.abitech.rfid
                     { 1, "60" },
                     { 2, "73" },
                     { 3, "73 выс" },
-                    { 4, "89" }
+                    { 4, "89" },
+					{ 1000, "прочее" },
                 };
 		 public string this[int id]
 			{
@@ -77,6 +78,13 @@ namespace com.abitech.rfid
 		public int locationY;
 	}
 
+	public class AppBuild
+	{
+		public string build;
+		public string updateType;
+		public string hash;
+	}
+
     public class Repair
     {
         public int id;
@@ -84,6 +92,8 @@ namespace com.abitech.rfid
         public int cjp;
         public int oilwellNumber;
         public int tubeDiameterId;
+		public int rodDiameterId;
+		public int pumpId;
     }
 
     public class Order
@@ -99,11 +109,13 @@ namespace com.abitech.rfid
 	public class OrderListRecord
 	{
 		public int id;
+		public int orderTypeId;
 		public int ogpw;
 		public int cjp;
 		public int oilwellNumber;
-		public int orderTypeId;
 		public int tubeDiameterId;
+		public int rodDiameterId;
+		public int pumpId;
 		public int tubesNumber;
 		public int tubesNumberByWaybills;
 	}
@@ -112,7 +124,11 @@ namespace com.abitech.rfid
 	{
 		public int id;
 		public int actTypeId;
-		public int tubesNumber;
+		public int tubesNumberNew;
+		public int tubesNumberOld;
+		public int rodNumberNew;
+		public int rodNumberOld;
+		public int pumpTypeId;
 	}
 
     /// <summary>
